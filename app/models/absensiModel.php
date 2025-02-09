@@ -33,10 +33,11 @@ function getTodayAbsensi() {
     return $result->fetch_all(MYSQLI_ASSOC); // Langsung array
 }
 
-// Mengambil jumlah persentase data absensi untuk dashboard (langsung array)
+// Mengambil jumlah data absensi untuk dashboard (langsung array)
 function getKehadiranDashboardData() {
     global $conn;
     $date = date('Y-m-d');
+    $total_Siswa = 1214;
 
     $query = "SELECT 
                 SUM(CASE WHEN keterangan IN ('Tepat Waktu', 'Terlambat') THEN 1 ELSE 0 END) AS total_hadir,
@@ -48,10 +49,15 @@ function getKehadiranDashboardData() {
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $date);
     $stmt->execute();
-    return $stmt->get_result()->fetch_assoc(); // Langsung array
+    $result = $stmt->get_result()->fetch_assoc();
+
+    $result['total_belum_absen'] = $total_Siswa - $result['total_hadir'];
+    
+    return $result;
 }
 
-// Mengambil jumlah persentase data absensi untuk dashboard sesuai mood (langsung array)
+
+// Mengambil jumlah data absensi untuk dashboard sesuai mood (langsung array)
 function getDashboardMoodData() {
     global $conn;
     $date = date('Y-m-d');
@@ -72,7 +78,7 @@ function getDashboardMoodData() {
 }
 
 // Mengambil absensi top 20 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)
-function getTop20Absensi() {
+function getLow10Absensi() {
     global $conn;
 
     $query = "SELECT
@@ -84,7 +90,7 @@ function getTop20Absensi() {
             WHERE keterangan = 'Terlambat'
             GROUP BY nama, kelas, keterangan
             ORDER BY total_terlambat DESC
-            LIMIT 20";
+            LIMIT 10";
 
     $stmt = $conn->prepare($query);
     $stmt->execute();
@@ -92,6 +98,29 @@ function getTop20Absensi() {
 
     return $result->fetch_all(MYSQLI_ASSOC); // Langsung array
 }
+
+// Mengambil absensi top 20 siswa dengan tingkat kehadiran tertinggi atau tepat waktu (langsung array)
+function getTop10Absensi() {
+    global $conn;
+
+    $query = "SELECT
+                nama,
+                kelas,
+                keterangan,
+                COUNT(*) AS total_tepat_waktu
+            FROM absensi
+            WHERE keterangan = 'Tepat Waktu'
+            GROUP BY nama, kelas, keterangan
+            ORDER BY total_tepat_waktu DESC
+            LIMIT 10";
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC); // Langsung array
+}
+
 
 // Data rata-rata persentase kehadiran siswa setiap tahun pembelajaran (langsung array)
 function getRataRataKehadiran() {

@@ -269,3 +269,119 @@ h2 {
 .qr-actions button:hover {
   opacity: 0.9;
 }
+
+/* style card Dashboard */
+
+/* Style Card Umum */
+.card {
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 10px;
+  background-color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-body:hover {
+  box-shadow: 0 8px 16px rgba(255, 140, 0, 0.418), 0 4px 8px rgba(255, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Style Card Total Hadir */
+.card-bodyhadir {
+  padding: 15px;
+  background-color: #e5ffe3;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
+}
+
+.card-bodyhadir:hover {
+  box-shadow: 0 8px 16px rgba(38, 255, 0, 0.374), 0 4px 8px rgba(255, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Style Card Total Terlambat */
+.card-bodyterlambat {
+  padding: 15px;
+  background-color: #fedbdb;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
+}
+
+.card-bodyterlambat:hover {
+  box-shadow: 0 8px 16px rgba(255, 0, 0, 0.2), 0 4px 8px rgba(255, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+
+/* Style Card Top Siswa Terlambat */
+.low-attendance-list {
+  margin-top: 10px;
+}
+
+.attendance-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 3px 5px; 
+  border-bottom: 1px solid #ddd;
+  font-size: 10px; 
+}
+
+.attendance-col {
+  flex: 1;
+  text-align: center;
+  font-size: 8px; 
+}
+
+/* Style Card Total Belum Absen */
+.card-bodytotal {
+  padding: 15px;
+  background-color: #e7e7e7;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease-in-out;
+}
+
+.card-bodytotal:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Style Dashboard Mood */
+.summary-card {
+  border-right: 3px solid #ccc;
+}
+
+.mood-summary {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 50px;
+}
+
+.mood-item {
+  text-align: center; 
+}
+
+.mood-icon {
+  width: 50px; 
+  height: 50px; 
+  margin-bottom: 30px; 
+}
+
+.mood-item p {
+  margin: 5px;
+  font-size: 10px; 
+}
+
+/* Style Rata-Rata Hadir Pertahun */
+.card.hadir {
+  border-left: 5px solid #28a745; 
+}
+
+.card.terlambat {
+  border-left: 5px solid #dc3545;
+}

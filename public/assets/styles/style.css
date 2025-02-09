@@ -1,0 +1,271 @@
+:root {
+  --font-family: 'Inter', sans-serif;
+  --background-color: #f8f9fa;
+  --primary-color: rgba(72, 202, 228, 1);
+  --secondary-color: #646982;
+  --success-color: #2ecc71;
+  --info-color: #3498db;
+  --danger-color: #e74c3c;
+  --active-color: rgba(72, 202, 228, 1);
+  --hover-bg-color: rgba(72, 202, 228, 0.2);
+  --hover-danger-bg: rgba(209, 8, 8, 0.352);
+  --font-size: 12px;
+  --font-weight-normal: 400;
+  --font-weight-light: 300;
+  --font-weight-bold: 500;
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  transition: filter 0.3s ease-in-out;
+  font-size: var(--font-size);
+}
+
+main {
+  margin-left: 270px;
+  padding: 20px;
+  flex-grow: 1;
+}
+
+h2 {
+  font-size: var(--font-size-medium);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 20px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 270px;
+  height: 100vh;
+  background-color: white;
+  color: var(--secondary-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+.sidebar h4 {
+  color: black;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 10px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+}
+
+.nav-logo .logo {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.nav-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.nav {
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-item {
+  margin-bottom: 20px;
+}
+
+.top-nav .nav-link {
+  text-decoration: none;
+  color: var(--secondary-color);
+  font-weight: var(--font-weight-normal);
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.top-nav .nav-link:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--primary-color);
+}
+
+.bottom-nav .nav-item {
+  border-radius: 5px;
+  margin-bottom: 0;
+}
+
+.bottom-nav .nav-item:hover {
+  background-color: var(--hover-danger-bg);
+  border-radius: 12px;
+}
+
+.bottom-nav .nav-link {
+  font-weight: var(--font-weight-normal);
+  color: var(--danger-color);
+}
+
+.top-nav, .bottom-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.bottom-nav {
+  margin-top: auto; /* Ensures the bottom-nav stays at the bottom */
+}
+
+.sidebar .nav-item .nav-link.active {
+  background-color: var(--hover-bg-color);
+  color: var(--active-color);
+}
+/* Sidebar Styles */
+
+/* QR Container */
+.qr-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+/* QR Left Panel */
+.qr-left-panel {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.qr-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.qr-card-header h5 {
+  font-size: var(--font-size-medium);
+  color: var(--primary-color);
+}
+
+.qr-card-actions {
+  display: flex;
+  align-items: center;
+}
+
+.qr-action-dropdown {
+  font-size: var(--font-size-small);
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.qr-card-body {
+  margin-top: 20px;
+}
+
+.qr-code-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.qr-code-table th,
+.qr-code-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.qr-code-table th {
+  color: var(--secondary-color);
+  font-weight: var(--font-weight-bold);
+}
+
+.qr-code-table td {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* QR Right Panel */
+.qr-right-panel {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.qr-preview-img {
+  width: 300px;
+  height: 300px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: white;
+}
+
+.qr-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.qr-actions button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--font-size-small);
+}
+
+.download-btn {
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+}
+
+.generate-btn {
+  background-color: var(--info-color);
+  color: white;
+  border: none;
+}
+
+.qr-actions button:hover {
+  opacity: 0.9;
+}

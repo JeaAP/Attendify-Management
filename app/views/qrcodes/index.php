@@ -17,7 +17,9 @@ session_start();
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
+    
     <script src="/Attendify-Management/public/assets/js/config.js"></script>
+    <script src="/Attendify-Management/public/assets/js/filter.js"></script>
     <script>
         sessionStorage.setItem("lastPage", window.location.pathname);
         // Bypass javascript auth
@@ -54,7 +56,7 @@ session_start();
                                     </div>
                                     <div class="form-group col-md-auto">
                                         <!-- Filter Tanggal -->
-                                        <input type="date" class="form-control">
+                                        <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +71,7 @@ session_start();
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="dataTable">
                                 <tr>
                                     <td><img src="<?= ASSETS_PATH ?>images//PNGQr.png" alt="QR Code"></td>
                                     <td class="text-center align-content-center">17-01-2025</td>

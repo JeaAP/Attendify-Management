@@ -23,6 +23,7 @@ $absensiToday = getTodayAbsensiController();
     <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
 
     <script src="/Attendify-Management/public/assets/js/config.js"></script>
+    <script src="/Attendify-Management/public/assets/js/filter.js"></script>
     <script>
         sessionStorage.setItem("lastPage", window.location.pathname);
         // Bypass javascript auth
@@ -115,8 +116,27 @@ $absensiToday = getTodayAbsensiController();
                                     </select>
                                 </div>
                                 <div class="form-group col-md-0">
+                                    <!-- Filter Status -->
+                                    <select class="custom-select" id="statusFilter">
+                                        <option value="">Status</option>
+                                        <option value="Tepat Waktu">Tepat Waktu</option>
+                                        <option value="Terlambat">Terlambat</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-0">
+                                    <!-- Filter Mood -->
+                                    <select class="custom-select" id="moodFilter">
+                                        <option value="">Mood</option>
+                                        <option value="Happy">Happy</option>
+                                        <option value="Sad">Sad</option>
+                                        <option value="Angry">Angry</option>
+                                        <option value="Tired">Tired</option>
+                                        <option value="Excited">Excited</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-0">
                                     <!-- Filter Tanggal -->
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
                                 </div>
                             </div>
                         </div>
@@ -136,7 +156,7 @@ $absensiToday = getTodayAbsensiController();
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="dataTable">
                             <?php if(!empty($absensiAll)):
                                 foreach ($absensiAll as $id => $absensi): 
                                 $tanggal = date('d-m-Y', strtotime($absensi['waktu']));

@@ -6,7 +6,12 @@ const CONFIG = {
     VIEWS_PATH: "/Attendify-Management/app/views/", // Path untuk tampilan (views)
     TEMPLATES_PATH: "/Attendify-Management/app/views/" // Path untuk templates
 };
+
+// Debugging (Opsional)
 // console.log("Config Loaded - BASE_URL:", CONFIG.BASE_URL);
 
+// Menyimpan ke `window.CONFIG` agar bisa diakses secara global
+window.CONFIG = CONFIG;
+
 // Ekspor konfigurasi jika menggunakan module JavaScript
-export default CONFIG;
+// export default CONFIG;

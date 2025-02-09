@@ -3,8 +3,8 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../controllers/absensiController.php';
 
 session_start();
-$low_attendance_students = getLow10Absensi();
-$Top_attendance_students = getTop10Absensi();
+$low_attendance_students = getTopLow10AbsensiController();
+$Top_attendance_students = getTopHigh10AbsensiController();
 $student_attendance = getKehadiranDashboardData();
 $student_mood = getDashboardMoodData();
 $average_student_attendance = getRataRataKehadiran();
@@ -22,6 +22,15 @@ $average_student_attendance = getRataRataKehadiran();
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
+
+    <script src="/Attendify-Management/public/assets/js/config.js"></script>
+    <script>
+        sessionStorage.setItem("lastPage", window.location.pathname);
+        // Bypass javascript auth
+        if (!sessionStorage.getItem("authenticated")) {
+            window.location.href = window.CONFIG.BASE_URL + "public/";
+        }
+    </script>
 </head>
 <body>
     <!-- Template Sidebar -->

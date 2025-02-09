@@ -25,8 +25,20 @@ function getDashboardMoodController() {
 }
 
 // Mengambil top 20 siswa dengan keterlambatan terbanyak
-function getTop20AbsensiController() {
-    $result = getTop20Absensi();
+// function getTop20AbsensiController() {
+//     $result = getTop20Absensi();
+//     return $result;
+// }
+
+// Mengambil top 10 siswa dengan keterlambatan terbanyak
+function getTopLow10AbsensiController() {
+    $result = getTop10Absensi();
+    return $result;
+}
+
+// Mengambil top 10 siswa dengan tingkat kehadiran tertinggi
+function getTopHigh10AbsensiController() {
+    $result = getTop10Absensi();
     return $result;
 }
 

@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../config/config.php';
-require_once BASE_URL . 'app/controllers/authController.php';
+require_once __DIR__ . '/../controllers/authController.php';
 
 if(isset($_GET['action'])) {
     $action = $_GET['action']; // Mengambil parameter action

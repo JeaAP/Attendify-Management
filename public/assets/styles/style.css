@@ -385,3 +385,104 @@ h2 {
 .card.terlambat {
   border-left: 5px solid #dc3545;
 }
+
+/* QR Container */
+.qr-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+}
+
+.qr-card {
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+.qr-card-header {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.qr-card-header h6 {
+  font-size: 20px;
+  color: #333;
+}
+
+.qr-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* QR Left Panel */
+.qr-left-panel {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* QR Right Panel */
+
+.qr-right-panel {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: auto;
+}
+
+.qr-preview-img {
+  width: 250px;
+  height: 250px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  padding: 15px;
+}
+.qr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+.qr-actions button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  border: none;
+  width: 150px;
+}
+
+.qr-actions button:hover {
+  opacity: 0.9;
+}
+/* Button */
+.download-btn {
+  background-color: #99e6a7;
+  color: white;
+}
+
+.generate-btn {
+  background-color: #79c2f2;
+  color: white;
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 3px 15px 3px 15px;
+}
+
+.delete-btn:hover {
+  opacity: 0.9;
+}

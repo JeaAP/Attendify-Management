@@ -77,7 +77,7 @@ function getDashboardMoodData() {
     return $stmt->get_result()->fetch_assoc(); // Langsung array
 }
 
-// Mengambil absensi top 20 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)
+// Mengambil absensi top 10 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)
 function getLow10Absensi() {
     global $conn;
 
@@ -99,7 +99,7 @@ function getLow10Absensi() {
     return $result->fetch_all(MYSQLI_ASSOC); // Langsung array
 }
 
-// Mengambil absensi top 20 siswa dengan tingkat kehadiran tertinggi atau tepat waktu (langsung array)
+// Mengambil absensi top 10 siswa dengan tingkat kehadiran tertinggi atau tepat waktu (langsung array)
 function getTop10Absensi() {
     global $conn;
 

@@ -216,16 +216,18 @@ function toggleNoDataMessage(hasData) {
 }
 
 function refreshData() {
+    
     location.reload();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("filterDate").addEventListener("input", () => { setFilteringStatus(); filterByDate(); });
-    document.getElementById("jurusanFilter").addEventListener("change", () => { setFilteringStatus(); filterByJurusan(); });
-    document.getElementById("kelasFilter").addEventListener("change", () => { setFilteringStatus(); filterByKelas(); });
-    document.getElementById("searchInput").addEventListener("input", () => { setFilteringStatus(); filterBySearch(); });
-    document.getElementById("statusFilter").addEventListener("change", () => { setFilteringStatus(); filterByStatus(); });
-    document.getElementById("moodFilter").addEventListener("change", () => { setFilteringStatus(); filterByMood(); });
+    document.getElementById("filterDate").addEventListener("input", filterByDate);
+    document.getElementById("jurusanFilter").addEventListener("change", filterByJurusan);
+    document.getElementById("kelasFilter").addEventListener("change", filterByKelas);
+    document.getElementById("statusFilter").addEventListener("change", filterByStatus);
+    document.getElementById("moodFilter").addEventListener("change", filterByMood);
+    document.getElementById("searchInput").addEventListener("input", filterBySearch);
     document.getElementById("refreshButton").addEventListener("click", refreshData);
-    
+
+    // setInterval(refreshData, 10000);
 });

@@ -34,17 +34,19 @@ $average_student_attendance = getRataRataKehadiran();
     <div class="dashboard-summary row">
         <div class="col-md-4 summary-card">
             <div class="card text-left">
-                <div class="card-bodyhadir" onclick="window.location.href='Absensi.php'">
+                <div class="card-bodyhadir" onclick="window.location.href='absensi/index.php'">
                     <h4>Total Hadir</h4>
-                    <h2 class="text-success small-number"><?= $student_attendance['total_hadir']; ?> Siswa </h2>
+                    <h2 class="text-success small-number"><?= $student_attendance['total_hadir']; ?> Siswa </h2> 
+                    <p>Dari 1.214 Siswa</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 summary-card">
             <div class="card text-left">
-                <div class="card-bodyterlambat" onclick="window.location.href='Tardy.php'">
+                <div class="card-bodyterlambat" onclick="window.location.href='absensi/index.php'">
                     <h4>Total Terlambat</h4>
                         <h2 class="text-danger small-number"><?= $student_attendance['total_terlambat']; ?> Siswa</h2>
+                        <p>Dari 1.214 Siswa</p>
                 </div>
             </div>
         </div>
@@ -53,6 +55,7 @@ $average_student_attendance = getRataRataKehadiran();
                 <div class="card-bodytotal">
                     <h4>Total Belum Absen</h4>
                     <h2 class="text-danger small-number"><?= $student_attendance['total_belum_absen']; ?> Siswa</h2>
+                    <p>Dari 1.214 Siswa</p>
                 </div>
             </div>
         </div>

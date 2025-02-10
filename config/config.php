@@ -3,7 +3,7 @@
 define('ROOT_PATH', __DIR__ . '/../');  // Menentukan root aplikasi
 
 // Anda juga bisa mendefinisikan URL dasar aplikasi jika diperlukan
-define('BASE_URL', '/Attendify-Management/');
+define('BASE_URL', 'https://backend24.site/Rian/XI/attendify/Attendify-Management/');
 // gunakan -> https://backend24.site/Rian/XI/attendify/Web_Manajemen/
 
 // Tentukan path dasar proyek (root proyek)

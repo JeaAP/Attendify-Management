@@ -1,10 +1,10 @@
 const CONFIG = {
     ROOT_PATH: "/", // Path root aplikasi (bisa diubah sesuai kebutuhan)
-    BASE_URL: "/Attendify-Management/", // URL dasar aplikasi
+    BASE_URL: "https://backend24.site/Rian/XI/attendify/Attendify-Management/", // URL dasar aplikasi
     BASE_PATH: "/Attendify-Management/", // Path dasar proyek
-    ASSETS_PATH: "/Attendify-Management/public/assets/", // Path untuk assets seperti gambar, CSS, JS
-    VIEWS_PATH: "/Attendify-Management/app/views/", // Path untuk tampilan (views)
-    TEMPLATES_PATH: "/Attendify-Management/app/views/" // Path untuk templates
+    ASSETS_PATH: BASE_URL + "public/assets/", // Path untuk assets seperti gambar, CSS, JS
+    VIEWS_PATH: BASE_URL + "/app/views/", // Path untuk tampilan (views)
+    TEMPLATES_PATH: BASE_URL + "/app/views/templates/" // Path untuk templates
 };
 
 // Debugging (Opsional)

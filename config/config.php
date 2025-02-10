@@ -11,9 +11,9 @@ define('BASE_PATH', realpath(__DIR__ . '/../') . '/');
 
 
 // Ini bisa berguna jika Anda ingin mengakses folder lain seperti assets atau uploads
-define('ASSETS_PATH', BASE_URL . 'public/assets/');
-define('VIEWS_PATH', BASE_URL . 'app/views/');
-define('TEMPLATES_PATH', BASE_URL . 'app/views/templates/');
+define('ASSETS_PATH', BASE_URL . '/public/assets/');
+define('VIEWS_PATH', BASE_URL . '/app/views/');
+define('TEMPLATES_PATH', BASE_URL . '/app/views/templates/');
 
 
 ?>

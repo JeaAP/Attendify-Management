@@ -177,7 +177,7 @@
                 sessionStorage.setItem("authenticated", "true");
 
                 // Redirect ke dashboard
-                window.location.href = CONFIG.BASE_URL + "app/views/dashboard.php";
+                window.location.href = window.CONFIG.BASE_URL + "app/views/dashboard.php";
             } else {
                 // Tampilkan error dan goyangkan input
                 errorMessage.textContent = "Incorrect code. Please try again.";

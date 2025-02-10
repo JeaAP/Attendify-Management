@@ -1,4 +1,4 @@
-const BASE_URL = "https://backend24.site/Rian/XI/attendify/attendify_management";
+const BASE_URL = "https://backend24.site/Rian/XI/attendify/attendify_management/";
 
 const CONFIG = {
     ROOT_PATH: "/", // Path root aplikasi (bisa diubah sesuai kebutuhan)

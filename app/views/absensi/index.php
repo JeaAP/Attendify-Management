@@ -22,8 +22,8 @@ $absensiToday = getTodayAbsensiController();
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
 
-    <script src="/Attendify-Management/public/assets/js/config.js"></script>
-    <script src="/Attendify-Management/public/assets/js/filter.js"></script>
+    <script src="<?= BASE_URL ?>public/assets/js/config.js"></script>
+    <script src="<?= BASE_URL ?>public/assets/js/filter.js"></script>
     <script>
         sessionStorage.setItem("lastPage", window.location.pathname);
         // Bypass javascript auth

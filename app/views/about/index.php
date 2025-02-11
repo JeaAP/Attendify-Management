@@ -16,6 +16,15 @@ session_start();
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
     <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
+
+    <script src="/Attendify-Management/public/assets/js/config.js"></script>
+    <script>
+        sessionStorage.setItem("lastPage", window.location.pathname);
+        // Bypass javascript auth
+        if (!sessionStorage.getItem("authenticated")) {
+            window.location.href = window.CONFIG.BASE_URL + "public/";
+        }
+    </script>
 </head>
 <body>
     <!-- Template Sidebar -->

@@ -48,10 +48,22 @@ $aboutActive = ($currentFolder === 'about') ? 'active' : ''; // Jika folder saat
         </div>
         <div class="bottom-nav">
             <li class="nav-item">
-                <a class="nav-link" href="<?=BASE_URL?>app/routes/authRoutes.php?action=logout">
+                <a class="nav-link" href="#" id="logoutBtn">
                     <img src="<?=ASSETS_PATH?>images/PNGLogout.png" alt="Logout Icon" class="nav-icon"> Logout
                 </a>
             </li>
         </div>
     </ul>
 </nav>
+
+<script>
+    // Logout
+    const logoutButton = document.getElementById('logoutBtn');
+    logoutButton.addEventListener('click', function() {
+        const confirmLogout = confirm('Apakah Anda yakin ingin keluar?');
+        if (confirmLogout) {
+            sessionStorage.clear();
+            window.location.href = '<?=BASE_URL?>app/routes/authRoutes.php?action=logout';
+        }
+    });
+</script>

@@ -77,7 +77,7 @@ function getDashboardMoodData() {
     return $stmt->get_result()->fetch_assoc(); // Langsung array
 }
 
-// Mengambil absensi top 20 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)
+// Mengambil absensi top 10 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)
 function getLow10Absensi() {
     global $conn;
 
@@ -99,7 +99,7 @@ function getLow10Absensi() {
     return $result->fetch_all(MYSQLI_ASSOC); // Langsung array
 }
 
-// Mengambil absensi top 20 siswa dengan tingkat kehadiran tertinggi atau tepat waktu (langsung array)
+// Mengambil absensi top 10 siswa dengan tingkat kehadiran tertinggi atau tepat waktu (langsung array)
 function getTop10Absensi() {
     global $conn;
 
@@ -141,7 +141,7 @@ function getRataRataKehadiran() {
                     (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM absensi WHERE YEAR(waktu) = YEAR(a.waktu))) AS persen_hadir,
                     (SUM(CASE WHEN keterangan = 'Tepat Waktu' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS persen_tepat_waktu,
                     (SUM(CASE WHEN keterangan = 'Terlambat' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS persen_terlambat
-                FROM absensi a
+                FROM absensi 
                 WHERE keterangan IN ('Tepat Waktu', 'Terlambat')
                 GROUP BY nisn, YEAR(waktu)
             ) AS subquery

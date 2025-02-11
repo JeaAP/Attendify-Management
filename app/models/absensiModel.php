@@ -138,7 +138,7 @@ function getRataRataKehadiran() {
                     COUNT(*) AS total_hadir,
                     SUM(CASE WHEN keterangan = 'Tepat Waktu' THEN 1 ELSE 0 END) AS total_tepat_waktu,
                     SUM(CASE WHEN keterangan = 'Terlambat' THEN 1 ELSE 0 END) AS total_terlambat,
-                    (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM absensi WHERE YEAR(waktu) = YEAR(a.waktu))) AS persen_hadir,
+                    (COUNT(*) * 100.0 / (SELECT COUNT(*) FROM absensi WHERE YEAR(waktu) = YEAR(waktu))) AS persen_hadir,
                     (SUM(CASE WHEN keterangan = 'Tepat Waktu' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS persen_tepat_waktu,
                     (SUM(CASE WHEN keterangan = 'Terlambat' THEN 1 ELSE 0 END) * 100.0 / COUNT(*)) AS persen_terlambat
                 FROM absensi 

@@ -174,12 +174,12 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                                 <?php foreach ($absensiPaginated as $absensi): 
                                     $tanggal = date('d-m-Y', strtotime($absensi['waktu']));
                                     $waktu = date('H:i', strtotime($absensi['waktu']));
-                                    $statusClass = $absensi['keterangan'] === 'Tepat Waktu' ? 'succes-color' : 'dange-color';
+                                    $statusClass = $absensi['keterangan'] === 'Tepat Waktu' ? 'success-color-bg' : 'danger-color-bg';
                                     $moodColor = in_array($absensi['mood'], ['Angry', 'Tired', 'Sad']) ? 'text-danger' : '';
                                 ?>
                                 <tr>
                                     <td><?= $absensi['nama'] ?></td>
-                                    <td class="text-center"><?= $absensi['kelas'] ?></td>
+                                    <td class="text-start"><?= $absensi['kelas'] ?></td>
                                     <td class="text-center"><?= $absensi['nisn'] ?></td>
                                     <td class="text-center"><?= $tanggal ?></td>
                                     <td class="text-center"><?= $waktu ?></td>

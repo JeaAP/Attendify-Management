@@ -21,7 +21,7 @@
   --font-size-medium: 16px;
 }
 
-.danger-color {
+.danger-color-bg {
   color: var(--text-danger-color);
   background-color: var(--danger-color);
   border-radius: 5px;
@@ -31,7 +31,7 @@
   }
 }
 
-.success-color {
+.success-color-bg {
   color: var(--text-success-color);
   background-color: var(--success-color);
   border-radius: 5px;

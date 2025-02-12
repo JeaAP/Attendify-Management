@@ -7,14 +7,7 @@ session_start();
 $qr_codes = readQrcodeController();
 
 $folderPath = __DIR__ . '/..//../../../qrcodes/';
-
-$latestQr = null;
-$files = [];
-
-if (is_dir($folderPath)) {
-    $files = array_diff(scandir($folderPath, SCANDIR_SORT_DESCENDING), array('.', '..'));
-    $latestQr = reset($files);
-}
+$files = scandir($folderPath);
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +101,16 @@ if (is_dir($folderPath)) {
                         <h6 class="card-title text-center align-content-center">QR Code Terbaru</h6>
                     </div>
                     <div class="qr-card-body text-center">
-                        <?php if ($latestQr): ?>
+                        <?php 
+                        $latestQr = null;
+                        $files = [];
+                        
+                        if (is_dir($folderPath)) {
+                            $files = array_diff(scandir($folderPath, SCANDIR_SORT_DESCENDING), array('.', '..'));
+                            $latestQr = reset($files);
+                        }
+                        
+                        if ($latestQr): ?>
                             <img src="<?= BASE_URL ?>../qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
                         <?php else: ?>
                             <p>Tidak ada QR Code tersedia.</p>

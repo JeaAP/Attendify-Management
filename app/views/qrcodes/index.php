@@ -2,22 +2,21 @@
 require_once __DIR__ . '/../../../config/config.php';
 require_once __DIR__ . '/../../controllers/qrcodeController.php';
 
+session_start();
+
 $qr_codes = readQrcodeController();
 
-$folderPath = __DIR__ . '/../../../../qrcodes/';
-$files = scandir($folderPath);
+$folderPath = __DIR__ . '/../../../qrcodes/';
+
+$latestQr = null;
+$files = [];
 
 if (is_dir($folderPath)) {
     $files = array_diff(scandir($folderPath, SCANDIR_SORT_DESCENDING), array('.', '..'));
-    $latestQr = reset($files); // Ambil file (terbaru)
-} else {
-    $latestQr = null;
+    $latestQr = reset($files);
 }
-
-session_start();
 ?>
 
-<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +24,7 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Qrcodes Attendify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
@@ -35,20 +34,17 @@ session_start();
     <script src="<?= BASE_URL ?>public/assets/js/filter.js"></script>
     <script>
         sessionStorage.setItem("lastPage", window.location.pathname);
-        // Bypass javascript auth
         if (!sessionStorage.getItem("authenticated")) {
             window.location.href = window.CONFIG.BASE_URL + "public/";
         }
     </script>
 </head>
 <body>
-    <!-- Template Sidebar -->
     <?php include_once __DIR__ . "/../templates/sidebar.php" ?>
 
     <main>
         <h2>QR code</h2>
         <div class="qr-container">
-            <!-- Left Panel -->
             <div class="qr-left-panel">
                 <div class="qr-card">
                     <div class="qr-card-header">
@@ -62,13 +58,11 @@ session_start();
                             <div class="col-md-auto">
                                 <div class="form-row">
                                     <div class="form-group col-md-auto">
-                                        <!-- Tombol Refresh -->
                                         <button type="button" class="btn btn-primary" id="refreshButton">
                                             <i class="bi bi-arrow-clockwise"></i>
                                         </button>
                                     </div>
                                     <div class="form-group col-md-auto">
-                                        <!-- Filter Tanggal -->
                                         <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
                                     </div>
                                 </div>
@@ -85,31 +79,29 @@ session_start();
                                 </tr>
                             </thead>
                             <tbody id="dataTable">
-                                <?php foreach ($files as $file):
-                                    if ($file === '.' || $file === '..') continue; 
-                                        foreach($qr_codes as $qr_code): 
-                                            if($file === $qr_code['qr_code_text'] . '.png') continue;
-                                ?>
-                                <tr>
-                                    <td>
-                                        <img src="<?= $folderPath . $file ?>" alt="QR Code">
-                                        <span class="qr-code-text" hidden><?= $qr_code['qr_code_text']?></span>
-                                    </td>
-                                    <td class="text-center align-content-center"><?= date($qr_code['created_at']) ?></td>
-                                    <td class="text-center align-content-center">
-                                        <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qr_code['id'] ?>">
-                                            <button class="delete-btn">Delete</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; endforeach;?>
+                                <?php foreach ($qr_codes as $qr_code): ?>
+                                    <?php $qrFileName = $qr_code['qr_code_text'] . '.png'; ?>
+                                    <?php if (in_array($qrFileName, $files)): ?>
+                                        <tr>
+                                            <td>
+                                                <img src="<?= BASE_URL ?>qrcodes/<?= $qrFileName ?>" alt="QR Code">
+                                                <span class="qr-code-text" hidden><?= $qr_code['qr_code_text'] ?></span>
+                                            </td>
+                                            <td class="text-center align-content-center"><?= date('Y-m-d', strtotime($qr_code['created_at'])) ?></td>
+                                            <td class="text-center align-content-center">
+                                                <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qr_code['id'] ?>">
+                                                    <button class="btn btn-danger">Delete</button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Panel -->
             <div class="qr-right-panel">
                 <div class="qr-card">
                     <div class="qr-card-header">
@@ -117,14 +109,14 @@ session_start();
                     </div>
                     <div class="qr-card-body text-center">
                         <?php if ($latestQr): ?>
-                            <img src="<?= $folderPath . $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
+                            <img src="<?= BASE_URL ?>qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
                         <?php else: ?>
                             <p>Tidak ada QR Code tersedia.</p>
                         <?php endif; ?>
 
                         <div class="qr-actions mt-3">
                             <?php if ($latestQr): ?>
-                                <a href="<?= $folderPath . $latestQr ?>" download="<?= $latestQr ?>">
+                                <a href="<?= BASE_URL ?>qrcodes/<?= $latestQr ?>" download="<?= $latestQr ?>">
                                     <button class="btn btn-success">Download</button>
                                 </a>
                             <?php endif; ?>

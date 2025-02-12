@@ -5,7 +5,7 @@ require_once __DIR__ . '/../models/qrcodeModel.php';
 function createQrcodeController() {
     try {
         addQRCode();
-        header("Location: ../views/qrcodes/index.php?success=note_created");
+        header("Location: ../views/qrcodes/index.php?success=qrcode_created");
     } catch (Exception $e) {
         header("Location: ../views/qrcodes/index.php?error=" . urlencode($e->getMessage()));
     }
@@ -26,7 +26,7 @@ function deleteQrcodeController() {
 
         try {
             deleteQRCode($id);
-            header("Location: ../views/qrcodes/index.php?success=note_deleted");
+            header("Location: ../views/qrcodes/index.php?success=qrcode_deleted");
         } catch (Exception $e) {
 
             header("Location: ../views/qrcodes/index.php?error=" . urlencode($e->getMessage()));

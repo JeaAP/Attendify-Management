@@ -388,12 +388,10 @@ h2 {
 }
 
 /* Style About */
-
-
 .card-about {
   align-items: center;
   display: inline-block; 
-  max-width: 600px; 
+  max-width: 920px; 
   width: 100%; 
   padding: 10px;
   background-color: white;
@@ -405,11 +403,13 @@ h2 {
 .image-slider {
   position: relative;
   max-width: 600px; 
+  height: auto;
   width: 100%;
   overflow: hidden;
 }
 
 .slide-container {
+  max-width: 600px;
   display: flex;
   transition: transform 0.5s ease-in-out;
 }

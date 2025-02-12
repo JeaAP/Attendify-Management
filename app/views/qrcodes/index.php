@@ -109,9 +109,9 @@ $files = scandir($folderPath);
                             $files = array_diff(scandir($folderPath, SCANDIR_SORT_DESCENDING), array('.', '..'));
                             $latestQr = reset($files);
                         }
-                        
+
                         if ($latestQr): ?>
-                            <img src="<?= BASE_URL ?>../qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
+                            <img src="<?= BASE_URL ?>../qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" width="100" height="100">
                         <?php else: ?>
                             <p>Tidak ada QR Code tersedia.</p>
                         <?php endif; ?>

@@ -4,10 +4,22 @@ require_once __DIR__ . '/../../controllers/absensiController.php';
 
 session_start();
 
-// Ambil data absensi semua
+// Ambil semua data absensi
 $absensiAll = getAllAbsensiController();
-// Ambil data absensi hari ini
-$absensiToday = getTodayAbsensiController();
+
+// Tentukan jumlah data per halaman
+$limit = 50;
+
+// Ambil halaman saat ini dari URL, default ke 1 jika tidak ada
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+// Hitung total data dan halaman
+$totalAbsensi = count($absensiAll);
+$totalPages = ceil($totalAbsensi / $limit);
+
+// Ambil data sesuai halaman
+$absensiPaginated = array_slice($absensiAll, $offset, $limit);
 ?>
 
 <!DOCTYPE html>
@@ -146,7 +158,7 @@ $absensiToday = getTodayAbsensiController();
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <td class="text-secondary" >Nama</td>
+                                <td class="text-secondary">Nama</td>
                                 <td class="text-secondary">Kelas</td>
                                 <td class="text-secondary">NISN</td>
                                 <td class="text-secondary">Tanggal</td>
@@ -157,37 +169,62 @@ $absensiToday = getTodayAbsensiController();
                             </tr>
                         </thead>
                         <tbody id="dataTable">
-                            <?php if(!empty($absensiAll)):
-                                foreach ($absensiAll as $id => $absensi): 
-                                $tanggal = date('d-m-Y', strtotime($absensi['waktu']));
-                                $waktu = date('H:i', strtotime($absensi['waktu']));
-
-                                // warna badge untuk keterangan
-                                $statusBadge = $absensi['keterangan'] === 'Tepat Waktu'? 'badge bg-success' : 'badge bg-danger';
-
-                                // warna untuk mood burul
-                                $moodColor = $absensi['mood'] === 'Angry' || $absensi['mood'] === 'Tired' || $absensi['mood'] === 'Sad'? 'text-danger' : '';
+                            <?php if (!empty($absensiPaginated)): ?>
+                                <?php foreach ($absensiPaginated as $absensi): 
+                                    $tanggal = date('d-m-Y', strtotime($absensi['waktu']));
+                                    $waktu = date('H:i', strtotime($absensi['waktu']));
+                                    $statusBadge = $absensi['keterangan'] === 'Tepat Waktu' ? 'badge bg-success' : 'badge bg-danger';
+                                    $moodColor = in_array($absensi['mood'], ['Angry', 'Tired', 'Sad']) ? 'text-danger' : '';
                                 ?>
-                            <tr>
-                                <td><?= $absensi['nama'] ?></td>
-                                <td class="text-center"><?= $absensi['kelas'] ?></td>
-                                <td class="text-center"><?= $absensi['nisn'] ?></td>
-                                <td class="text-center"><?= $tanggal ?></td>
-                                <td class="text-center"><?= $waktu ?></td>
-                                <td class="text-center"><span class="<?=$statusBadge?>"><?=$absensi['keterangan']?></span></td>
-                                <td class="text-center"><span class="<?=$moodColor?>"><?= $absensi['mood'] ?></span></td>
-                                <td class="text-center"><a href="#" >Detail</a></td>
-                            </tr>
-                            <?php endforeach;
-                                else: ?>
-                            <tr>
-                                <td colspan="8" class="text-center text-muted">Data Kosong</td>
-                            </tr>
-                            <?php endif;?>
+                                <tr>
+                                    <td><?= $absensi['nama'] ?></td>
+                                    <td class="text-center"><?= $absensi['kelas'] ?></td>
+                                    <td class="text-center"><?= $absensi['nisn'] ?></td>
+                                    <td class="text-center"><?= $tanggal ?></td>
+                                    <td class="text-center"><?= $waktu ?></td>
+                                    <td class="text-center"><span class="<?= $statusBadge ?>"><?= $absensi['keterangan'] ?></span></td>
+                                    <td class="text-center"><span class="<?= $moodColor ?>"><?= $absensi['mood'] ?></span></td>
+                                    <td class="text-center"><a href="#">Detail</a></td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted">Data Kosong</td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container text-center mt-3">
+            <nav>
+                <ul class="pagination justify-content-center">
+                    <?php if ($page > 1): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+
+                    <?php if ($page < $totalPages): ?>
+                        <li class="page-item">
+                            <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </nav>
         </div>
     </main>
 </body>

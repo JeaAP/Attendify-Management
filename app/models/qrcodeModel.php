@@ -28,7 +28,7 @@ function addQRCode(): bool {
         $filePath = $folderPath . $uniqueCode . '.png';
         
         // Memastikan folder qrcodes ada dan bisa ditulis
-        if (!is_dir($folderPath) || !is_writable($folderPath)) {
+        if (!is_dir(BASE_URL . '../qrcodes/') || !is_writable(BASE_URL . '../qrcodes/')) {
             echo "QR code folder does not exist.";
             return false;  // Mengembalikan false jika folder tidak ada
         }

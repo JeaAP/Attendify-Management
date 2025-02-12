@@ -88,7 +88,8 @@ session_start();
                                 <?php foreach ($files as $file):
                                     if ($file === '.' || $file === '..') continue; 
                                         foreach($qr_codes as $qr_code): 
-                                            if($file === $qrCode['qr_code_text'] . '.png') continue;?>
+                                            if($file === $qrCode['qr_code_text'] . '.png') continue;
+                                ?>
                                 <tr>
                                     <td>
                                         <img src="<?= $folderPath . $file ?>" alt="QR Code">

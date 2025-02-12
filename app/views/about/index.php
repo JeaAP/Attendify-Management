@@ -35,8 +35,8 @@ session_start();
         <div class="card-about">
             <div class="image-slider" id="slider">
                 <div class="slide-container">
-                    <div class="image-slide"><img src="PNGBrosur1.png" alt="Front Image"></div>
-                    <div class="image-slide"><img src="PNGBrosur2.png" alt="Back Image"></div>
+                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur1.png" alt="Front Image"></div>
+                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur2.png" alt="Back Image"></div>
                 </div>
             </div>
             <div class="slider-buttons">

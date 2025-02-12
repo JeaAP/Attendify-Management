@@ -45,13 +45,13 @@ $absensiToday = getTodayAbsensiController();
 
         <!-- Table for Attendance Data -->
         <div class="card">
-            <div class="container p-3 m-0">
+            <div class="container p-3 m-0 mw-100">
                 <div class="container-head">
                     <div class="row"> 
-                        <div class="col-md-auto">
+                        <div class="col-md-auto mt-1">
                             <img src="<?= ASSETS_PATH ?>images/Frame42.png">
                         </div>
-                        <div class="col">
+                        <div class="col mt-2">
                             <h6>Data Kehadiran Siswa</h6>
                         </div>
                         <div class="col-md-auto">
@@ -146,14 +146,14 @@ $absensiToday = getTodayAbsensiController();
                     <table class="table table-hover">
                         <thead>
                             <tr class="text-center">
-                                <th >Nama</th>
-                                <th>Kelas</th>
-                                <th>NISN</th>
-                                <th>Tanggal</th>
-                                <th>Waktu</th>
-                                <th>Status</th>
-                                <th>Mood</th>
-                                <th></th>
+                                <td class="text-secondary" >Nama</td>
+                                <td class="text-secondary">Kelas</td>
+                                <td class="text-secondary">NISN</td>
+                                <td class="text-secondary">Tanggal</td>
+                                <td class="text-secondary">Waktu</td>
+                                <td class="text-secondary">Status</td>
+                                <td class="text-secondary">Mood</td>
+                                <td class="text-secondary"></td>
                             </tr>
                         </thead>
                         <tbody id="dataTable">

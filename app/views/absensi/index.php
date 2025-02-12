@@ -177,15 +177,15 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                                     $statusClass = $absensi['keterangan'] === 'Tepat Waktu' ? 'success-color-bg' : 'danger-color-bg';
                                     $moodColor = in_array($absensi['mood'], ['Angry', 'Tired', 'Sad']) ? 'text-danger' : '';
                                 ?>
-                                <tr>
-                                    <td><?= $absensi['nama'] ?></td>
-                                    <td class="text-start"><?= $absensi['kelas'] ?></td>
-                                    <td class="text-center"><?= $absensi['nisn'] ?></td>
-                                    <td class="text-center"><?= $tanggal ?></td>
-                                    <td class="text-center"><?= $waktu ?></td>
-                                    <td class="text-center"><span class="<?= $statusClass ?>"><?= $absensi['keterangan'] ?></span></td>
-                                    <td class="text-center"><span class="<?= $moodColor ?>"><?= $absensi['mood'] ?></span></td>
-                                    <td class="text-center"><a href="#">Detail</a></td>
+                                <tr class="text-center">
+                                    <td class="text-start"><?= $absensi['nama'] ?></td>
+                                    <td><?= $absensi['kelas'] ?></td>
+                                    <td><?= $absensi['nisn'] ?></td>
+                                    <td><?= $tanggal ?></td>
+                                    <td><?= $waktu ?></td>
+                                    <td><span class="<?= $statusClass ?>"><?= $absensi['keterangan'] ?></span></td>
+                                    <td><span class="<?= $moodColor ?>"><?= $absensi['mood'] ?></span></td>
+                                    <td><a href="#">Detail</a></td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>

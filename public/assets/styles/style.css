@@ -9,12 +9,36 @@
   --active-color: rgba(72, 202, 228, 1);
   --hover-bg-color: rgba(72, 202, 228, 0.2);
   --hover-danger-bg: rgba(209, 8, 8, 0.352);
+
+  --text-danger-color: #d8301d;
+  --text-success-color: #0ddc63;
+
   --font-size: 12px;
   --font-weight-normal: 400;
   --font-weight-light: 300;
   --font-weight-bold: 500;
   --font-size-small: 14px;
   --font-size-medium: 16px;
+}
+
+.danger-color {
+  color: var(--text-danger-color);
+  background-color: var(--danger-color);
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: var(--hover-danger-bg);
+  }
+}
+
+.success-color {
+  color: var(--text-success-color);
+  background-color: var(--success-color);
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+  &:hover {
+    background-color: var(--hover-bg-color);
+  }
 }
 
 body {

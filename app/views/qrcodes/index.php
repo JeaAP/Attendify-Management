@@ -96,7 +96,11 @@ session_start();
                                         <span class="qr-code-text" hidden><?= $qrCode['qr_code_text']?></span>
                                     </td>
                                     <td class="text-center align-content-center"><?= date($qrCode['created_at']) ?></td>
-                                    <td class="text-center align-content-center"><button class="delete-btn">Delete</button></td>
+                                    <td class="text-center align-content-center">
+                                        <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qrCode['id'] ?>">
+                                            <button class="delete-btn">Delete</button>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <?php endforeach; endforeach;?>
                             </tbody>

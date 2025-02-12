@@ -5,7 +5,6 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,7 +31,7 @@ session_start();
 
     <main class="col px-4">
         <h2>About</h2>
-        <div class="card-about">
+        <div class="card-about-abput">
             <div class="image-slider" id="slider">
                 <div class="slide-container">
                     <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur1.png" alt="Front Image"></div>

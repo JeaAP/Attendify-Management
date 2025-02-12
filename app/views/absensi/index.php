@@ -7,19 +7,20 @@ session_start();
 // Ambil semua data absensi
 $absensiAll = getAllAbsensiController();
 
-// Tentukan jumlah data per halaman
+// Pagination
 $limit = 50;
 
-// Ambil halaman saat ini dari URL, default ke 1 jika tidak ada
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Hitung total data dan halaman
 $totalAbsensi = count($absensiAll);
 $totalPages = ceil($totalAbsensi / $limit);
 
-// Ambil data sesuai halaman
 $absensiPaginated = array_slice($absensiAll, $offset, $limit);
+
+$visiblePages = 20;
+$startPage = max(1, min($page - 1, $totalPages - $visiblePages + 1));
+$endPage = min($startPage + $visiblePages - 1, $totalPages);
 ?>
 
 <!DOCTYPE html>
@@ -148,7 +149,7 @@ $absensiPaginated = array_slice($absensiAll, $offset, $limit);
                                 </div>
                                 <div class="form-group col-md-0">
                                     <!-- Filter Tanggal -->
-                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
+                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()" value="<?= date('Y-m-d'); ?>">
                                 </div>
                             </div>
                         </div>
@@ -210,7 +211,7 @@ $absensiPaginated = array_slice($absensiAll, $offset, $limit);
                         </li>
                     <?php endif; ?>
 
-                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                    <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
                         <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
                             <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                         </li>

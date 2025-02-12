@@ -1,5 +1,11 @@
 <?php
 require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../controllers/qrcodeController.php';
+
+$qr_codes = readQrcodeController();
+
+$folderPath = BASE_URL . '../qrcodes/';
+$files = scandir($folderPath);
 
 session_start();
 ?>
@@ -72,11 +78,19 @@ session_start();
                                 </tr>
                             </thead>
                             <tbody id="dataTable">
+                                <?php foreach ($files as $file):
+                                    if ($file === '.' || $file === '..') continue; 
+                                        foreach($qr_codes as $qr_code): 
+                                            if($file === $qrCode['qr_code_text'] . '.png') continue;?>
                                 <tr>
-                                    <td><img src="<?= ASSETS_PATH ?>images//PNGQr.png" alt="QR Code"></td>
-                                    <td class="text-center align-content-center">17-01-2025</td>
+                                    <td>
+                                        <img src="<?= $folderPath . $file ?>" alt="QR Code">
+                                        <span class="qr-code-text" hidden><?= $qrCode['qr_code_text']?></span>
+                                    </td>
+                                    <td class="text-center align-content-center"><?= date($qrCode['created_at']) ?></td>
                                     <td class="text-center align-content-center"><button class="delete-btn">Delete</button></td>
                                 </tr>
+                                <?php endforeach; endforeach;?>
                             </tbody>
                         </table>
                     </div>

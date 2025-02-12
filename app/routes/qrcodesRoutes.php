@@ -9,6 +9,9 @@ if(isset($_GET['action'])) {
         case 'create': // Membuat qrcode
             createQrcodeController();
             break;
+        case 'read': // Membaca qrcode
+            readQrcodeController();
+            break;
         case 'delete': // Menghapus qrcode
             deleteQrcodeController();
             break;

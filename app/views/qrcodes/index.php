@@ -107,7 +107,9 @@ session_start();
                         <img src="<?= ASSETS_PATH ?>images//PNGQr.png" alt="QR Code" class="qr-preview-img">
                         <div class="qr-actions">
                             <button class="download-btn">Download</button>
-                            <button class="generate-btn">Generate QR code</button>
+                            <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=create">
+                                <button class="generate-btn">Generate QR code</button>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -77,32 +77,30 @@ function getAllQRCode() {
 
 // Menghapus QR Code berdasarkan ID
 function deleteQRCode($id) {
-    function deleteQRCode($id) {
-        global $conn;
-    
-        // Ambil nama file QR Code dari database sebelum dihapus
-        $stmt = $conn->prepare("SELECT qr_code_text FROM qr_codes WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        if ($result->num_rows === 0) {
-            die("Error: QR Code tidak ditemukan di database.");
-        }
-    
-        $row = $result->fetch_assoc();
-        $qrFileName = $row['qr_code_text'] . '.png';
-        $filePath = __DIR__ . '/../../../qrcodes/' . $qrFileName;
-    
-        // Hapus file dari folder jika ada
-        if (file_exists($filePath)) {
-            unlink($filePath);
-        }
-    
-        // Hapus data dari database
-        $stmt = $conn->prepare("DELETE FROM qr_codes WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
+    global $conn;
+
+    // Ambil nama file QR Code dari database sebelum dihapus
+    $stmt = $conn->prepare("SELECT qr_code_text FROM qr_codes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        die("Error: QR Code tidak ditemukan di database.");
     }
-}    
+
+    $row = $result->fetch_assoc();
+    $qrFileName = $row['qr_code_text'] . '.png';
+    $filePath = __DIR__ . '/../../../qrcodes/' . $qrFileName;
+
+    // Hapus file dari folder jika ada
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+
+    // Hapus data dari database
+    $stmt = $conn->prepare("DELETE FROM qr_codes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    return $stmt->execute();
+}   
 ?>

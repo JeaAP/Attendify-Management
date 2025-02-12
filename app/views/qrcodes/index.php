@@ -7,6 +7,13 @@ $qr_codes = readQrcodeController();
 $folderPath = BASE_URL . '../qrcodes/';
 $files = scandir($folderPath);
 
+if (is_dir($folderPath)) {
+    $files = array_diff(scandir($folderPath, SCANDIR_SORT_DESCENDING), array('.', '..'));
+    $latestQr = reset($files); // Ambil file (terbaru)
+} else {
+    $latestQr = null;
+}
+
 session_start();
 ?>
 
@@ -101,14 +108,24 @@ session_start();
             <div class="qr-right-panel">
                 <div class="qr-card">
                     <div class="qr-card-header">
-                        <h6 class="card-title text-center align-content-center">QR code Terbaru</h6>
+                        <h6 class="card-title text-center align-content-center">QR Code Terbaru</h6>
                     </div>
-                    <div class="qr-card-body">
-                        <img src="<?= ASSETS_PATH ?>images//PNGQr.png" alt="QR Code" class="qr-preview-img">
-                        <div class="qr-actions">
-                            <button class="download-btn">Download</button>
+                    <div class="qr-card-body text-center">
+                        <?php if ($latestQr): ?>
+                            <img src="<?= $folderPath . $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
+                        <?php else: ?>
+                            <p>Tidak ada QR Code tersedia.</p>
+                        <?php endif; ?>
+
+                        <div class="qr-actions mt-3">
+                            <?php if ($latestQr): ?>
+                                <a href="<?= $folderPath . $latestQr ?>" download="<?= $latestQr ?>">
+                                    <button class="btn btn-success">Download</button>
+                                </a>
+                            <?php endif; ?>
+                            
                             <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=create">
-                                <button class="generate-btn">Generate QR code</button>
+                                <button class="btn btn-primary">Generate QR Code</button>
                             </a>
                         </div>
                     </div>

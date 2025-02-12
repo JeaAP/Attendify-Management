@@ -11,7 +11,6 @@ function cleanInput($data) {
 function addQRCode(): bool {
     global $conn;
     $today = date('Y-m-d');
-    $folderPath = BASE_URL . '../qrcodes/';
     
     // Cek apakah QR code untuk hari ini sudah ada di database
     $stmt = $conn->prepare("SELECT * FROM qr_codes WHERE qr_code_date = ?");
@@ -25,10 +24,10 @@ function addQRCode(): bool {
         return false;  // Mengembalikan false jika QR code sudah ada
     } else {
         $uniqueCode = $today . '-' . md5(uniqid());
-        $filePath = $folderPath . $uniqueCode . '.png';
+        $filePath = '../../../qrcodes/' . $uniqueCode . '.png';
         
         // Memastikan folder qrcodes ada dan bisa ditulis
-        if (!is_dir(BASE_URL . '../qrcodes/') || !is_writable(BASE_URL . '../qrcodes/')) {
+        if (!is_dir('../../../qrcodes/')) {
             echo "QR code folder does not exist.";
             return false;  // Mengembalikan false jika folder tidak ada
         }

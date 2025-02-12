@@ -386,3 +386,60 @@ h2 {
 .card.terlambat {
   border-left: 5px solid #dc3545;
 }
+
+/* Style About */
+.card-about {
+  align-items: center;
+  display: inline-block; 
+  max-width: 920px; 
+  width: 100%; 
+  padding: 10px;
+  background-color: white;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+  word-wrap: break-word; 
+}
+
+.image-slider {
+  position: relative;
+  max-width: 920px; 
+  width: 100%;
+  overflow: hidden;
+}
+
+.slide-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.image-slide {
+  min-width: 100%;
+}
+
+.image-slide img {
+  width: 100%;
+  display: flex;
+}
+
+.slider-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.slider-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: #ffcc80;
+  color: black;
+  font-size: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin: 5px;
+  transition: background 0.3s;
+}
+
+.slider-btn:hover {
+  background-color: #ff9e40;
+}

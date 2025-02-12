@@ -30,8 +30,20 @@ session_start();
     <!-- Template Sidebar -->
     <?php include_once __DIR__ . "/../templates/sidebar.php" ?>
 
-    <main>
+    <main class="col px-4">
         <h2>About</h2>
+        <div class="card-about">
+            <div class="image-slider" id="slider">
+                <div class="slide-container">
+                    <div class="image-slide"><img src="PNGBrosur1.png" alt="Front Image"></div>
+                    <div class="image-slide"><img src="PNGBrosur2.png" alt="Back Image"></div>
+                </div>
+            </div>
+            <div class="slider-buttons">
+                <button class="slider-btn" id="prevBtn">&#10094;</button>
+                <button class="slider-btn" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
     </main>
 </body>
 </html>

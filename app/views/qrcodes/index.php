@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../controllers/qrcodeController.php';
 
 $qr_codes = readQrcodeController();
 
-$folderPath = BASE_URL . '../qrcodes/';
+$folderPath = __DIR__ . '/../../../../qrcodes/';
 $files = scandir($folderPath);
 
 if (is_dir($folderPath)) {

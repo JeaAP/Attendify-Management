@@ -88,16 +88,16 @@ session_start();
                                 <?php foreach ($files as $file):
                                     if ($file === '.' || $file === '..') continue; 
                                         foreach($qr_codes as $qr_code): 
-                                            if($file === $qrCode['qr_code_text'] . '.png') continue;
+                                            if($file === $qr_code['qr_code_text'] . '.png') continue;
                                 ?>
                                 <tr>
                                     <td>
                                         <img src="<?= $folderPath . $file ?>" alt="QR Code">
-                                        <span class="qr-code-text" hidden><?= $qrCode['qr_code_text']?></span>
+                                        <span class="qr-code-text" hidden><?= $qr_code['qr_code_text']?></span>
                                     </td>
-                                    <td class="text-center align-content-center"><?= date($qrCode['created_at']) ?></td>
+                                    <td class="text-center align-content-center"><?= date($qr_code['created_at']) ?></td>
                                     <td class="text-center align-content-center">
-                                        <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qrCode['id'] ?>">
+                                        <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qr_code['id'] ?>">
                                             <button class="delete-btn">Delete</button>
                                         </a>
                                     </td>

@@ -6,7 +6,7 @@ session_start();
 
 $qr_codes = readQrcodeController();
 
-$folderPath = __DIR__ . '/../../../qrcodes/';
+$folderPath = __DIR__ . '/..//../../../qrcodes/';
 
 $latestQr = null;
 $files = [];
@@ -84,7 +84,7 @@ if (is_dir($folderPath)) {
                                     <?php if (in_array($qrFileName, $files)): ?>
                                         <tr>
                                             <td>
-                                                <img src="<?= BASE_URL ?>qrcodes/<?= $qrFileName ?>" alt="QR Code">
+                                                <img src="<?= BASE_URL ?>../qrcodes/<?= $qrFileName ?>" alt="QR Code">
                                                 <span class="qr-code-text" hidden><?= $qr_code['qr_code_text'] ?></span>
                                             </td>
                                             <td class="text-center align-content-center"><?= date('Y-m-d', strtotime($qr_code['created_at'])) ?></td>
@@ -109,14 +109,14 @@ if (is_dir($folderPath)) {
                     </div>
                     <div class="qr-card-body text-center">
                         <?php if ($latestQr): ?>
-                            <img src="<?= BASE_URL ?>qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
+                            <img src="<?= BASE_URL ?>../qrcodes/<?= $latestQr ?>" alt="QR Code" class="qr-preview-img" style="width: 200px;">
                         <?php else: ?>
                             <p>Tidak ada QR Code tersedia.</p>
                         <?php endif; ?>
 
                         <div class="qr-actions mt-3">
                             <?php if ($latestQr): ?>
-                                <a href="<?= BASE_URL ?>qrcodes/<?= $latestQr ?>" download="<?= $latestQr ?>">
+                                <a href="<?= BASE_URL ?>../qrcodes/<?= $latestQr ?>" download="<?= $latestQr ?>">
                                     <button class="btn btn-success">Download</button>
                                 </a>
                             <?php endif; ?>

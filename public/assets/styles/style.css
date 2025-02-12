@@ -21,7 +21,7 @@
   --font-size-medium: 16px;
 }
 
-span .danger-color-bg {
+span .text-danger{
   color: var(--text-danger-color);
   background-color: var(--danger-color);
   border-radius: 5px;
@@ -31,7 +31,7 @@ span .danger-color-bg {
   }
 }
 
-span .success-color-bg {
+span .text-success {
   color: var(--text-success-color);
   background-color: var(--success-color);
   border-radius: 5px;

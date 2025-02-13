@@ -35,6 +35,7 @@ $files = scandir($folderPath);
 <body>
     <?php include_once __DIR__ . "/../templates/sidebar.php" ?>
 
+    <!-- === TODO: KURANG BAGUS === -->
     <main>
         <h2>QR code</h2>
         <div class="qr-container">

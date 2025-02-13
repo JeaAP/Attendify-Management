@@ -29,6 +29,7 @@ session_start();
     <!-- Template Sidebar -->
     <?php include_once __DIR__ . "/../templates/sidebar.php" ?>
 
+    <!-- === TODO: JELEK === -->
     <main class="col px-4">
         <h2>About</h2>
         <div class="card-about-abput">

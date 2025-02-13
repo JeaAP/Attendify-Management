@@ -24,7 +24,7 @@ function getTodayAbsensi() {
     global $conn;
     $today = date('Y-m-d');
 
-    $query = "SELECT * FROM absensi WHERE DATE(waktu) = ?";
+    $query = "SELECT * FROM absensi WHERE DATE(waktu) = ? ORDER BY waktu DESC";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $today);
     $stmt->execute();

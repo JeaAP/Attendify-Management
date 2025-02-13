@@ -200,12 +200,11 @@ function filterBySearch() {
 }
 
 function resetFilter() {
-    document.getElementById('jurusanFilter').value = null;
-    document.getElementById('kelasFilter').value = null;
-    document.getElementById('statusFilter').value = null;
-    document.getElementById('moodFilter').value = null;
-    document.getElementById('searchInput').value = null;
-    document.getElementById('filterDate').value = null;
+    document.getElementById('jurusanFilter').selectedIndex = 0;
+    document.getElementById('kelasFilter').selectedIndex = 0;
+    document.getElementById('statusFilter').selectedIndex = 0;
+    document.getElementById('moodFilter').selectedIndex = 0;
+    document.getElementById('searchInput').value = "";
 }
 
 function toggleNoDataMessage(hasData) {

@@ -11,7 +11,7 @@ function cleanInput($data) {
 function getAllAbsensi() {
     global $conn;
 
-    $query = "SELECT * FROM absensi";
+    $query = "SELECT * FROM absensi ORDER BY waktu DESC";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

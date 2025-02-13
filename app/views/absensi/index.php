@@ -71,7 +71,7 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                             <div class="form-row">
                                 <div class="form-group col-md-auto">
                                     <!-- Tombol Reset Filter -->
-                                    <button type="button" class="btn btn-warning" id="resetFilterButton"></button>
+                                    <button type="button" class="btn btn-warning" id="resetFilterButton">
                                         <i class="bi bi-arrow-counterclockwise"></i>
                                     </button>
                                 </div>

@@ -70,15 +70,15 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                         <div class="col-md-auto">
                             <div class="form-row">
                                 <div class="form-group col-md-auto">
-                                    <!-- Tombol Reset Filter -->
-                                    <button type="button" class="btn btn-warning" id="resetFilterButton">
-                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    <!-- Tombol Refresh -->
+                                    <button type="button" class="btn btn-primary" id="refreshButton">
+                                        <i class="bi bi-arrow-repeat"></i>
                                     </button>
                                 </div>
                                 <div class="form-group col-md-auto">
-                                    <!-- Tombol Refresh -->
-                                    <button type="button" class="btn btn-primary" id="refreshButton">
-                                        <i class="bi bi-arrow-clockwise"></i>
+                                    <!-- Tombol Reset Filter -->
+                                    <button type="button" class="btn btn-warning" id="resetFilterButton">
+                                        <i class="bi bi-arrow-counterclockwise"></i>
                                     </button>
                                 </div>
                                 <div class="form-group col-md-auto">

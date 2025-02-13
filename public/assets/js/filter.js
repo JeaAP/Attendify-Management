@@ -200,12 +200,12 @@ function filterBySearch() {
 }
 
 function resetFilter() {
-    document.getElementById("filterDate").value = "";
-    document.getElementById("jurusanFilter").value = "";
-    document.getElementById("kelasFilter").value = "";
-    document.getElementById("statusFilter").value = "";
-    document.getElementById("moodFilter").value = "";
-    document.getElementById("searchInput").value = "";
+    document.getElementById('jurusanFilter').value = null;
+    document.getElementById('kelasFilter').value = null;
+    document.getElementById('statusFilter').value = null;
+    document.getElementById('moodFilter').value = null;
+    document.getElementById('searchInput').value = null;
+    document.getElementById('filterDate').value = null;
 }
 
 function toggleNoDataMessage(hasData) {
@@ -237,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("moodFilter").addEventListener("change", filterByMood);
     document.getElementById("searchInput").addEventListener("input", filterBySearch);
     document.getElementById("refreshButton").addEventListener("click", refreshData);
-    document.getElementById("resetFilterButtom").addEventListener("click", resetFilter);
+    document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
 
     // setInterval(refreshData, 10000);
 });

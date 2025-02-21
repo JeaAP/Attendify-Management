@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../controllers/absensiController.php';
 
@@ -8,6 +12,7 @@ $Top_attendance_students = getTopHigh10AbsensiController();
 $student_attendance = getKehadiranDashboardData();
 $student_mood = getDashboardMoodData();
 $average_student_attendance = getRataRataKehadiran();
+
 ?>
 
 <!DOCTYPE html>

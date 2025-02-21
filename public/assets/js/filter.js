@@ -67,7 +67,6 @@ function filterByJurusan() {
     updateKelasFilter();
     
     let selectedJurusan = document.getElementById("jurusanFilter").value;
-    console.log(selectedJurusan);
     
     // Mapping nama jurusan dari HTML ke singkatan yang digunakan di tabel
     const jurusanMap = {

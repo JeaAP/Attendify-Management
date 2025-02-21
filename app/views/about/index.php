@@ -32,7 +32,7 @@ session_start();
     <!-- === TODO: JELEK === -->
     <main class="col px-4">
         <h2>About</h2>
-        <div class="card-about-abput">
+        <div class="card-about-about">
             <div class="image-slider" id="slider">
                 <div class="slide-container">
                     <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur1.png" alt="Front Image"></div>

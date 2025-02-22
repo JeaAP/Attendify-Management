@@ -218,7 +218,7 @@ $average_student_attendance = getRataRataKehadiran();
                         <div class="attendance-col"><?php echo htmlspecialchars($student['nama']); ?></div>
                         <div class="attendance-col"><?php echo htmlspecialchars($student['kelas']); ?></div>
                         <div class="attendance-col"><?php echo htmlspecialchars( $student['keterangan']); ?></div>
-                        <div class="attendance-col"><?php echo htmlspecialchars( $student['total_terlambat']); ?></div>
+                        <div class="attendance-col"><?php echo $student['total_terlambat']; ?></div>
                     </div>
                     <?php endforeach; ?>
                 </div>

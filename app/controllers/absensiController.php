@@ -8,6 +8,12 @@ function getAllAbsensiController() {
     return $result;
 }
 
+// Mengambil jumlah semua absensi
+function getTotalAbsensiController() {
+    $result = getTotalAbsensi();
+    return $result;
+}
+
 // Mengambil absensi berdasarkan hari ini
 function getTodayAbsensiController() {
     $result = getTodayAbsensi();

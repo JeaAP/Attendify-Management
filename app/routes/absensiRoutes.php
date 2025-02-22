@@ -8,6 +8,7 @@ if(isset($_GET['action'])) {
     switch ($action) {
         case 'baca':
             getAllAbsensiController();
+            getTotalAbsensiController();
             getJurusanController();
             getKelasController();
             break;

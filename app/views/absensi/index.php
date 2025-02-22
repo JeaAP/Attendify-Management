@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../../config/config.php';
-// require_once __DIR__ . '/../../controllers/absensiController.php';
 require_once __DIR__ . '/../../routes/absensiRoutes.php';
 
 session_start();

@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../../config/config.php';
 // Mengambil bagian URL dari path
 $requestUri = $_SERVER['REQUEST_URI'];
 
+// Memisahkan path dan query
 $pathWithoutQuery = explode('?', $requestUri)[0];
 
 $pathSegments = explode('/', trim($pathWithoutQuery, '/'));

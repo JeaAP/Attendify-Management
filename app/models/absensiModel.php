@@ -19,6 +19,21 @@ function getAllAbsensi() {
     return $result->fetch_all(MYSQLI_ASSOC); // Langsung mengembalikan array
 }
 
+// Mengambil jumlah semua absensi
+function getTotalAbsensi() {
+    global $conn;
+
+    $sql = "SELECT COUNT(*) AS total FROM absensi"; 
+    $result = $conn->query($sql);
+
+    if ($result) {
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    } else {
+        return 0;
+    }
+}
+
 // Mengambil absensi berdasarkan hari ini (langsung array)
 function getTodayAbsensi() {
     global $conn;

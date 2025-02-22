@@ -15,7 +15,7 @@ session_start();
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
 
-    <link href="<?= BASE_URL ?>public/assets/styles/styleAbout.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>public/assets/styles/styleAbout.css?v=<?= time() ?>" rel="stylesheet">
     
     <script src="/Attendify-Management/public/assets/js/config.js"></script>
     <script>

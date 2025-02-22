@@ -6,21 +6,6 @@ session_start();
 
 // Ambil semua data absensi
 $absensiAll = getAllAbsensiController();
-
-// Pagination
-$limit = 50;
-
-$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-$offset = ($page - 1) * $limit;
-
-$totalAbsensi = count($absensiAll);
-$totalPages = ceil($totalAbsensi / $limit);
-
-$absensiPaginated = array_slice($absensiAll, $offset, $limit);
-
-$visiblePages = 20;
-$startPage = max(1, min($page - 1, $totalPages - $visiblePages + 1));
-$endPage = min($startPage + $visiblePages - 1, $totalPages);
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +15,8 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absensi Attendify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
@@ -156,7 +143,7 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                                 </div>
                                 <div class="form-group col-md-0">
                                     <!-- Filter Tanggal -->
-                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()" value="<?= date('Y-m-d'); ?>">
+                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()" ">
                                 </div>
                             </div>
                         </div>
@@ -177,8 +164,8 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                             </tr>
                         </thead>
                         <tbody id="dataTable">
-                            <?php if (!empty($absensiPaginated)): ?>
-                                <?php foreach ($absensiPaginated as $absensi): 
+                            <?php if (!empty($absensiAll)): ?>
+                                <?php foreach ($absensiAll as $absensi): 
                                     $tanggal = date('d-m-Y', strtotime($absensi['waktu']));
                                     $waktu = date('H:i', strtotime($absensi['waktu']));
                                     $statusClass = $absensi['keterangan'] == 'Tepat Waktu' ? 'badge rounded-pill bg-success' : 'badge rounded-pill bg-danger';
@@ -193,7 +180,7 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
                                     <td><?= $waktu ?></td>
                                     <td><span class="<?= $statusClass ?>"><?= $absensi['keterangan'] ?></span></td>
                                     <td><span class="<?= $moodColor ?>"><?= $absensi['mood'] ?></span></td>
-                                    <td><a href="#">Detail</a></td>
+                                    <td><a href="#" class="detail-link" data-perasaan="<?= htmlspecialchars($absensi['perasaan']) ?>">Detail</a></td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
@@ -207,34 +194,39 @@ $endPage = min($startPage + $visiblePages - 1, $totalPages);
             </div>
         </div>
 
-        <!-- Pagination -->
-        <div class="pagination-container text-center mt-3">
-            <nav>
-                <ul class="pagination justify-content-center">
-                    <?php if ($page > 1): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?= $page - 1 ?>" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-
-                    <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
-                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php endfor; ?>
-
-                    <?php if ($page < $totalPages): ?>
-                        <li class="page-item">
-                            <a class="page-link" href="?page=<?= $page + 1 ?>" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
-            </nav>
+        <!-- Modal -->
+        <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detail Absensi</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="perasaanContent">Loading...</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </main>
+
+    <script>
+        document.querySelectorAll('.detail-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                var perasaan = e.target.getAttribute('data-perasaan');
+                
+                document.getElementById('perasaanContent').textContent = perasaan;
+                
+                var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+                myModal.show();
+            });
+        });
+    </script>
 </body>
 </html>

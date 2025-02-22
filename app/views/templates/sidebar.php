@@ -4,7 +4,9 @@ require_once __DIR__ . '/../../../config/config.php';
 // Mengambil bagian URL dari path
 $requestUri = $_SERVER['REQUEST_URI'];
 
-$pathSegments = explode('/', trim($requestUri, '/'));
+$pathWithoutQuery = explode('?', $requestUri)[0];
+
+$pathSegments = explode('/', trim($pathWithoutQuery, '/'));
 $currentFolder = end($pathSegments); // Mengambil elemen terakhir, yaitu folder saat ini
 
 // Tentukan status "active" berdasarkan folder yang ada
@@ -29,7 +31,7 @@ $aboutActive = ($currentFolder === 'about') ? 'active' : ''; // Jika folder saat
             </li>
             <!-- Navigasi Absensi -->
             <li class="nav-item">
-                <a class="nav-link <?= $absensiActive; ?>" href="<?=BASE_URL?>app/views/absensi">
+                <a class="nav-link <?= $absensiActive; ?>" href="<?=BASE_URL?>app/views/absensi/?action=baca">
                     <img src="<?=ASSETS_PATH?>images/PNGAbsensi.png" alt="Absensi Icon" class="nav-icon <?= $absensiActive; ?>"> Absensi
                 </a>
             </li>

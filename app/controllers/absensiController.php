@@ -41,4 +41,15 @@ function getRataRataKehadiranController() {
     $result = getRataRataKehadiran();
     return $result;
 }
+// Controller untuk jurusan
+function getJurusanController() {
+    $result = getJurusan();
+    return $result;
+}
+
+// Controller untuk kelas
+function getKelasController() {
+    $result = getKelas();
+    return $result;
+}
 ?>

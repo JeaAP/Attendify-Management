@@ -154,4 +154,28 @@ function getRataRataKehadiran() {
     
     return $result->fetch_assoc();
 }
+
+// Tabel Jurusan
+function getJurusan() {
+    global $conn;
+
+    $query = "SELECT * FROM jurusan";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+// Tabel Kelas
+function getKelas() {
+    global $conn;
+
+    $query = "SELECT * FROM kelas";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
 ?>

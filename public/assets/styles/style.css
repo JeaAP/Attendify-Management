@@ -165,14 +165,14 @@ h2 {
 /* QR Container */
 .qr-container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1.5fr 1.2fr;
   gap: 20px;
 }
 
 /* QR Left Panel */
 .qr-left-panel {
   background-color: white;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -248,6 +248,23 @@ h2 {
   background-color: #c0392b;
 }
 
+.qr-code-img {
+  display: block;
+  margin-top: 10px; /* Beri jarak dari teks di atasnya */
+  margin-left: 0; /* Pastikan tidak terpusat */
+  width: 100px; /* Sesuaikan ukuran */
+  height: auto;
+}
+
+.qr-code-table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.qr-date {
+  margin: 0;
+}
+
 /* QR Right Panel */
 .qr-right-panel {
   background-color: white;
@@ -257,8 +274,8 @@ h2 {
 }
 
 .qr-preview-img {
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;

@@ -14,7 +14,11 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
 
+<<<<<<< HEAD
     <link href="<?= BASE_URL ?>public/assets/styles/styleAbout.css" rel="stylesheet">
+=======
+    <link href="<?= BASE_URL ?>public/assets/styles/style.css?v=<?= time() ?>" rel="stylesheet">
+>>>>>>> 05a69442e72f297048a98e1997c42b3c770a702a
 
     <script src="/Attendify-Management/public/assets/js/config.js"></script>
     <script>

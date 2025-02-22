@@ -82,7 +82,7 @@ $files = scandir($folderPath);
                                                 <span class="qr-code-text" hidden><?= $qr_code['qr_code_text'] ?></span>
                                             </td>
                                             <td class="text-center align-content-center"><?= date('Y-m-d', strtotime($qr_code['created_at'])) ?></td>
-                                            <td class="text-center align-content-center">
+                                             <td class="text-center align-content-center">
                                                 <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qr_code['id'] ?>">
                                                     <button class="btn btn-danger">Delete</button>
                                                 </a>

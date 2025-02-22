@@ -30,7 +30,6 @@ session_start();
     <!-- Template Sidebar -->
     <?php include_once __DIR__ . "/../templates/sidebar.php" ?>
 
-    <!-- === TODO: JELEK === -->
     <main class="col px-4">
         <h2>About</h2>
         <div class="card-about-about">
@@ -46,5 +45,33 @@ session_start();
             </div>
         </div>
     </main>
-</body>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.image-slide');
+        const slideContainer = document.querySelector('.slide-container');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                currentSlideIndex = 0;
+            } 
+            else if (index < 0) {
+                currentSlideIndex = totalSlides - 1;
+            } else {
+                currentSlideIndex = index;
+            }
+
+            slideContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', function() {
+            showSlide(currentSlideIndex + 1);
+        });
+        document.getElementById('prevBtn').addEventListener('click', function() {
+            showSlide(currentSlideIndex - 1);
+        });
+
+        showSlide(currentSlideIndex);
+    </script>
 </html>

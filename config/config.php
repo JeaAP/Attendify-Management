@@ -1,8 +1,8 @@
 <?php
 define('ROOT_PATH', __DIR__ . '/../');  // Menentukan root aplikasi
 
-// define('BASE_URL', 'https://backend24.site/Rian/XI/attendify/attendify_management/');
-define('BASE_URL', '/Attendify-Management/');
+define('BASE_URL', 'https://backend24.site/Rian/XI/attendify/attendify_management/');
+// define('BASE_URL', '/Attendify-Management/');
 // gunakan -> https://backend24.site/Rian/XI/attendify/Web_Manajemen/
 define('BASE_PATH', realpath(__DIR__ . '/../') . '/');
 

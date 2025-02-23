@@ -227,6 +227,27 @@ function refreshData() {
     location.reload();
 }
 
+function resetFilter() {
+    const urlParams = new URLSearchParams(window.location.search);
+            
+    const action = urlParams.get('action');
+    const page = urlParams.get('page');
+
+    urlParams.forEach(function(value, key) {
+        if (key !== 'action' && key !== 'page') {
+            urlParams.delete(key);
+        }
+    });
+
+    if (action) {
+        urlParams.set('action', action);
+    }
+    if (page) {
+        urlParams.set('page', page);
+    }
+
+    window.location.search = urlParams.toString();
+}
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filterDate").addEventListener("input", filterByDate);
     document.getElementById("jurusanFilter").addEventListener("change", filterByJurusan);
@@ -235,7 +256,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("moodFilter").addEventListener("change", filterByMood);
     document.getElementById("searchInput").addEventListener("input", filterBySearch);
     document.getElementById("refreshButton").addEventListener("click", refreshData);
-    document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
+    document.getElementById("resetButton").addEventListener("click", resetFilter);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if(urlParams.has('status')) {
+        document.getElementById("statusFilter").value = urlParams.get('status');
+        filterByStatus();
+    }
+    if(urlParams.has('mood')) {
+        document.getElementById("moodFilter").value = urlParams.get('mood');
+        filterByMood();
+    }
+    // document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
 
     // setInterval(refreshData, 10000);
 });

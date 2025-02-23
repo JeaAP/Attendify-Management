@@ -4,35 +4,30 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../../../config/config.php';
+// require_once __DIR__ . '/../../controllers/absensiController.php';
 require_once __DIR__ . '/../../routes/absensiRoutes.php';
 
 session_start();
 
 // Ambil semua data absensi
-// $absensiAll = getAllAbsensiController($limit, $page);
-$filterAbsensi = filterAbsensiController( $kelas, $jurusan, $mood, $tanggal, $limit, $page);
-$kelas = getKelasController();
-$jurusan = getJurusanController();
+$absensiAll = getAllAbsensiController();
+$jur = getJurusanController();
+$kel = getKelasController();
 
-$kelas = isset($_GET['kelas']) ? $_GET['kelas'] : '';
-$jurusan = isset($_GET['jurusan']) ? $_GET['jurusan'] : '';
-$mood = isset($_GET['mood']) ? $_GET['mood'] : '';
-$tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
+// Pagination
+$limit = 15;
 
-$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
-$page = isset($_GET['page'])? (int)$_GET['page'] : 1;
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = ($page - 1) * $limit;
+
+$totalAbsensi = count($absensiAll);
 $totalPages = ceil($totalAbsensi / $limit);
 
-$maxPages = 10;
-if ($totalPages > $maxPages) {
-    $startPage = max(1, $page - floor($maxPages / 2));
-    $endPage = min($totalPages, $startPage + $maxPages - 1);
-} else {
-    $startPage = 1;
-    $endPage = $totalPages;
-}
+$absensiPaginated = array_slice($absensiAll, $offset, $limit);
 
-$pages = range($startPage, $endPage);
+$visiblePages = 20;
+$startPage = max(1, min($page - 1, $totalPages - $visiblePages + 1));
+$endPage = min($startPage + $visiblePages - 1, $totalPages);
 ?>
 
 <!DOCTYPE html>
@@ -42,13 +37,10 @@ $pages = range($startPage, $endPage);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Absensi Attendify</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    
-    <link href="<?= BASE_URL ?>public/assets/styles/style.css?v=<?= time() ?>" rel="stylesheet">
+    <link href="<?= BASE_URL ?>public/assets/styles/style.css" rel="stylesheet">
 
     <script src="<?= BASE_URL ?>public/assets/js/config.js"></script>
     <script src="<?= BASE_URL ?>public/assets/js/filter.js"></script>
@@ -83,42 +75,34 @@ $pages = range($startPage, $endPage);
                             <h6>Data Kehadiran Siswa</h6>
                         </div>
                         <div class="col-md-auto">
-                            <select class="custom-select" id="limitSelect">
-                                <option value="10">10</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                            </select>
-                        </div>
-                        <div class="col-md-auto">
                             <div class="form-row">
                                 <div class="form-group col-md-auto">
                                     <!-- Tombol Refresh -->
                                     <button type="button" class="btn btn-primary" id="refreshButton">
-                                        <i class="bi bi-arrow-repeat"></i>
+                                        <i class="bi bi-arrow-clockwise"></i>
                                     </button>
                                 </div>
                                 <div class="form-group col-md-auto">
                                     <!-- Tombol Reset Filter -->
-                                    <button type="button" class="btn btn-warning" id="resetFilterButton">
-                                        <i class="bi bi-arrow-counterclockwise"></i>
+                                    <button type="button" class="btn btn-secondary" id="resetButton">
+                                        <i class="bi bi-x-circle"></i>
                                     </button>
                                 </div>
                                 <div class="form-group col-md-auto">
                                     <!-- Filter Jurusan -->
                                     <select class="custom-select" id="jurusanFilter">
                                         <option value="">Jurusan</option>
-                                        <?php foreach ($jurusan as $j) : ?>
-                                            <option value="<?= $j['kodeJurusan'] ?>"><?= $j['namaJurusan'] ?></option>
-                                        <?php endforeach; ?>
+                                        <?php foreach ($jur as $j) :?>
+                                            <option value="<?= $j['kodeJurusan']?>"> <?= $j['namaJurusan']?> </option>
+                                        <?php endforeach;?>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-auto">
                                 <!-- Filter Kelas -->
                                     <select class="custom-select" id="kelasFilter">
                                         <option value="">Kelas</option>
-                                        <?php foreach ($kelas as $k) :?>
-                                            <option value="<?= $k['kelas']?>"><?= $k['kelas']?></option>
+                                        <?php foreach ($kel as $k) :?>
+                                            <option value="<?= $k['kelas']?>"> <?= $k['kelas']?> </option>
                                         <?php endforeach;?>
                                     </select>
                                 </div>
@@ -127,23 +111,23 @@ $pages = range($startPage, $endPage);
                                     <select class="custom-select" id="statusFilter">
                                         <option value="">Status</option>
                                         <option value="Tepat Waktu">Tepat Waktu</option>
-                                        <option value="Terlambat">Terlambat</option>
+                                        <option value="Terlambat" <?= isset($_GET['status']) && $_GET['status'] == 'Terlambat' ? 'selected' : '' ?> >Terlambat</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-0">
                                     <!-- Filter Mood -->
                                     <select class="custom-select" id="moodFilter">
                                         <option value="">Mood</option>
-                                        <option value="Happy">Happy</option>
-                                        <option value="Sad">Sad</option>
-                                        <option value="Angry">Angry</option>
-                                        <option value="Tired">Tired</option>
-                                        <option value="Excited">Excited</option>
+                                        <option value="Happy" <?= isset($_GET['mood']) && $_GET['mood'] == 'Happy' ? 'selected' : '' ?> >Happy</option>
+                                        <option value="Sad" <?= isset($_GET['mood']) && $_GET['mood'] == 'Sad' ? 'selected' : '' ?> >Sad</option>
+                                        <option value="Angry" <?= isset($_GET['mood']) && $_GET['mood'] == 'Angry' ? 'selected' : '' ?> >Angry</option>
+                                        <option value="Tired" <?= isset($_GET['mood']) && $_GET['mood'] == 'Tired' ? 'selected' : '' ?> >Tired</option>
+                                        <option value="Excited"> <?= isset($_GET['mood']) && $_GET['mood'] == 'Excited' ? 'selected' : '' ?> Excited</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-0">
                                     <!-- Filter Tanggal -->
-                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()" ">
+                                    <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
                                 </div>
                             </div>
                         </div>
@@ -164,8 +148,8 @@ $pages = range($startPage, $endPage);
                             </tr>
                         </thead>
                         <tbody id="dataTable">
-                            <?php if (!empty($absensiAll)): ?>
-                                <?php foreach ($absensiAll as $absensi): 
+                            <?php if (!empty($absensiPaginated)): ?>
+                                <?php foreach ($absensiPaginated as $absensi): 
                                     $tanggal = date('d-m-Y', strtotime($absensi['waktu']));
                                     $waktu = date('H:i', strtotime($absensi['waktu']));
                                     $statusClass = $absensi['keterangan'] == 'Tepat Waktu' ? 'badge rounded-pill bg-success' : 'badge rounded-pill bg-danger';
@@ -191,44 +175,35 @@ $pages = range($startPage, $endPage);
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <!-- Pagination -->
-                <div class="pagination-container">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>" id="prevButton">
-                                <a class="page-link" onclick="prevPage()" aria-label="Previous">
+            <!-- Pagination -->
+            <div class="pagination-container text-center mt-3">
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page > 1): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?action=baca&page=<?= $page - 1 ?>" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
+                        <?php endif; ?>
 
-                            <?php if ($startPage > 1): ?>
-                                <li class="page-item"><a class="page-link" href="?page=1&limit=<?= $limit ?>">1</a></li>
-                                <?php if ($startPage > 2): ?>
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                            <?php foreach ($pages as $i): ?>
-                                <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                    <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
-                                </li>
-                            <?php endforeach; ?>
-                            <?php if ($endPage < $totalPages): ?>
-                                <?php if ($endPage < $totalPages - 1): ?>
-                                    <li class="page-item disabled"><span class="page-link">...</span></li>
-                                <?php endif; ?>
-                                <li class="page-item"><a class="page-link" href="?page=<?= $totalPages ?>&limit=<?= $limit ?>"><?= $totalPages ?></a></li>
-                            <?php endif; ?>
+                        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                            <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                                <a class="page-link" href="?action=baca&page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                        <?php endfor; ?>
 
-                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>" id="nextButton">
-                                <a class="page-link" onclick="nextPage()" aria-label="Next">
+                        <?php if ($page < $totalPages): ?>
+                            <li class="page-item">
+                                <a class="page-link" href="?action=baca&page=<?= $page + 1 ?>" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
-                        </ul>
-                    </nav>
-                </div>
-
+                        <?php endif; ?>
+                    </ul>
+                </nav>
             </div>
         </div>
 
@@ -249,60 +224,22 @@ $pages = range($startPage, $endPage);
                 </div>
             </div>
         </div>
-
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Detail Modal
-        document.querySelectorAll('.detail-link').forEach(function (link) {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                var perasaan = e.target.getAttribute('data-perasaan');
-                
-                document.getElementById('perasaanContent').textContent = perasaan;
-                
-                var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
-                myModal.show();
-            });
-        });
-
+        // Detail modal
         document.addEventListener('DOMContentLoaded', function () {
-                    // limit page url
-        window.onload = function () {
-            var urlParams = new URLSearchParams(window.location.search);
-            if (!urlParams.has('limit') && !urlParams.has('page')) {
-                urlParams.set('limit', '10');
-                urlParams.set('page', '1');
-                window.history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
-            }
-        };
-
-        // limit
-        document.getElementById('limitSelect').addEventListener('change', function () {
-            var limit = this.value;
-            var currentUrl = new URL(window.location.href);
-            
-            updatePageLimit(currentUrl.searchParams.get('page'), limit);
-        });
-
-        // pagination
-        document.querySelectorAll('.page-link').forEach(function (link) {
-            link.addEventListener('click', function (e) {
-                e.preventDefault();
-                var page = this.textContent;
-                var currentUrl = new URL(window.location.href);
-                
-                updatePageLimit(page, currentUrl.searchParams.get('limit'));
+            // Add event listener to the detail link to open the modal
+            document.querySelectorAll('.detail-link').forEach(function (link) {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var perasaan = e.target.getAttribute('data-perasaan');
+                    document.getElementById('perasaanContent').textContent = perasaan;
+                    var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
+                    myModal.show();
+                });
             });
-        })
-
-        function updatePageLimit(page, limit) {
-            var currentUrl = new URL(window.location.href);
-            currentUrl.searchParams.set('page', page);
-            currentUrl.searchParams.set('limit', limit);
-            window.history.replaceState(null, '', currentUrl.toString());
-        };
         });
     </script>
 </body>

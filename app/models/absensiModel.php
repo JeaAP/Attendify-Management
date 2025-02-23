@@ -8,12 +8,12 @@ function cleanInput($data) {
 }
 
 // Mengambil semua absensi (langsung array)
-function getAllAbsensi($limit, $page) {
+function getAllAbsensi() {
     global $conn;
 
-    $offset = ($page - 1) * $limit;
-
-    $query = "SELECT * FROM absensi ORDER BY waktu DESC LIMIT $limit OFFSET $offset";
+    // $offset = ($page - 1) * $limit;
+    // LIMIT $limit OFFSET $offset
+    $query = "SELECT * FROM absensi ORDER BY waktu DESC";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -37,42 +37,59 @@ function getTotalAbsensi() {
 }
 
 // Filter
-function filterAbsensi($kelas, $jurusan, $mood, $tanggal, $limit, $page) {
+function filterAbsensi($kelas, $jurusan, $status, $mood, $tanggal, $limit, $page) {
     global $conn;
 
     $offset = ($page - 1) * $limit;
     
-    $kelas = isset($kelas) ? $kelas : '';
-    $jurusan = isset($jurusan) ? $jurusan : '';
-    $mood = isset($mood) ? $mood : '';
-    $tanggal = isset($tanggal) ? $tanggal : '';
+    $query = "SELECT * FROM absensi";
+    $conditions = [];
     
-    $query = "SELECT * FROM absensi ORDER BY waktu DESC LIMIT $limit OFFSET $offset";
-
-    if (!empty($kelas) || !empty($jurusan) || !empty($mood) || !empty($tanggal)) {
-        $query .= " WHERE";
-        $conditions = [];
-        if (!empty($kelas)) {
-            $conditions[] = "kelas = '$kelas'";
-        }
-        if (!empty($jurusan)) {
-            $conditions[] = "jurusan = '$jurusan'";
-        }
-        if (!empty($mood)) {
-            $conditions[] = "mood = '$mood'";
-        }
-        if (!empty($tanggal)) {
-            $conditions[] = "DATE(waktu) = '$tanggal'";
-        }
-        $query .= " " . implode(" AND ", $conditions);
+    if (!empty($kelas)) {
+        $conditions[] = "kelas = ?";
+    }
+    if (!empty($jurusan)) {
+        $conditions[] = "jurusan = ?";
+    }
+    if(!empty($status)) {
+        $conditions[] = "keterangan = ?"; // Changed from status to keterangan based on table structure
+    }
+    if (!empty($mood)) {
+        $conditions[] = "mood = ?";
+    }
+    if (!empty($tanggal)) {
+        $conditions[] = "DATE(waktu) = ?";
     }
     
-
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    if (!empty($conditions)) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+    }
     
-    return $result->fetch_all(MYSQLI_ASSOC);
+    $query .= " ORDER BY waktu DESC LIMIT ? OFFSET ?";
+    
+    $stmt = $conn->prepare($query);
+    
+    // Bind parameters
+    if ($stmt) {
+        $types = str_repeat('s', count($conditions)) . 'ii'; // string params + 2 integers for limit/offset
+        $params = [];
+        
+        if (!empty($kelas)) $params[] = $kelas;
+        if (!empty($jurusan)) $params[] = $jurusan;
+        if (!empty($status)) $params[] = $status;
+        if (!empty($mood)) $params[] = $mood;
+        if (!empty($tanggal)) $params[] = $tanggal;
+        
+        $params[] = $limit;
+        $params[] = $offset;
+        
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+    
+    return [];
 }
 
 // Mengambil absensi berdasarkan hari ini (langsung array)

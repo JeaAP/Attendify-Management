@@ -57,7 +57,7 @@ $average_student_attendance = getRataRataKehadiran();
         </div>
         <div class="col-md-4 summary-card">
             <div class="card text-left">
-                <div class="card-bodyterlambat" onclick="window.location.href='absensi/index.php'">
+                <div class="card-bodyterlambat" onclick="window.location.href='absensi/?action=baca&page=1&status=Terlambat'">
                     <h4>Total Terlambat</h4>
                         <h2 class="text-danger small-number"><?= $student_attendance['total_terlambat']; ?> Siswa</h2>
                         <p>Dari 1.214 Siswa</p>
@@ -84,23 +84,23 @@ $average_student_attendance = getRataRataKehadiran();
                     <a>Presentase rata-rata mood yang sering dirasakan siswa</a>
                     <div class="mood-summary">
                         <div class="mood-item">
-                            <a href="ReviewMood.php?mood=Angry"><img src="<?= ASSETS_PATH ?>images/PNGAngry.png" alt="Angry" class="mood-icon"> </a>
+                            <a href="absensi/?action=baca&page=1&mood=Angry"><img src="<?= ASSETS_PATH ?>images/PNGAngry.png" alt="Angry" class="mood-icon"> </a>
                             <p>Angry: <?= $student_mood['total_mood_angry']; ?>%</p>
                         </div>
                         <div class="mood-item">
-                            <a href="ReviewMood.php?mood=Tired"><img src="<?= ASSETS_PATH ?>images/PNGTired.png" alt="Tired" class="mood-icon"> </a>
+                            <a href="./absensi/?action=baca&page=1&mood=Tired"><img src="<?= ASSETS_PATH ?>images/PNGTired.png" alt="Tired" class="mood-icon"> </a>
                             <p>Tired: <?= $student_mood['total_mood_tired']; ?>%</p>
                         </div>
                         <div class="mood-item">
-                            <a href="ReviewMood.php?mood=Sad"><img src="<?= ASSETS_PATH ?>images/PNGSad.png" alt="Sad" class="mood-icon"> </a>
+                            <a href="./absensi/?action=baca&page=1&mood=Sad"><img src="<?= ASSETS_PATH ?>images/PNGSad.png" alt="Sad" class="mood-icon"> </a>
                             <p>Sad: <?= $student_mood['total_mood_tired']; ?>%</p>
                         </div>
                         <div class="mood-item">
-                            <a href="ReviewMood.php?mood=Happy"><img src="<?= ASSETS_PATH ?>images/PNGHappy.png" alt="Happy" class="mood-icon"> </a>
+                            <a href="./absensi/?action=baca&page=1&mood=Happy"><img src="<?= ASSETS_PATH ?>images/PNGHappy.png" alt="Happy" class="mood-icon"> </a>
                             <p>Happy: <?= $student_mood['total_mood_happy']; ?>%</p>
                         </div>
                         <div class="mood-item">
-                            <a href="ReviewMood.php?mood=Excited"><img src="<?= ASSETS_PATH ?>images/PNGExcited.png" alt="Another" class="mood-icon" ></a>
+                            <a href="./absensi/?action=baca&page=1&mood=Excited"><img src="<?= ASSETS_PATH ?>images/PNGExcited.png" alt="Excited" class="mood-icon" ></a>
                             <p>Excited: <?= $student_mood['total_mood_excited']; ?>%</p>
                         </div>
                     </div>

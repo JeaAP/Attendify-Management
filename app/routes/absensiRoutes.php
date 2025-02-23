@@ -5,12 +5,21 @@ require_once __DIR__ . '/../controllers/absensiController.php';
 if(isset($_GET['action'])) {
     $action = $_GET['action']; // Mengambil parameter action
 
+    $limit = isset($_GET['limit'])? $_GET['limit'] : 10;
+    $page = isset($_GET['page'])? $_GET['page'] : 1;
+
+    $kelas = isset($_GET['kelas'])? $_GET['kelas'] : '';
+    $jurusan = isset($_GET['jurusan'])? $_GET['jurusan'] : '';
+    $mood = isset($_GET['mood'])? $_GET['mood'] : '';
+    $tanggal = isset($_GET['tanggal'])? $_GET['tanggal'] : '';
+
     switch ($action) {
         case 'baca':
-            getAllAbsensiController();
-            getTotalAbsensiController();
+            $absensiAll = getAllAbsensiController($limit, $page);
+            $totalAbsensi = getTotalAbsensiController();
             getJurusanController();
             getKelasController();
+            $filterAbsensi = filterAbsensiController($kelas, $jurusan, $mood, $tanggal, $limit, $page);
             break;
         default: // Tidak menemukan parameter, pergi ke index.php
             header('Location: '. BASE_URL. 'public/');

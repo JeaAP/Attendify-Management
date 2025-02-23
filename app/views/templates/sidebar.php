@@ -32,7 +32,7 @@ $aboutActive = ($currentFolder === 'about') ? 'active' : ''; // Jika folder saat
             </li>
             <!-- Navigasi Absensi -->
             <li class="nav-item">
-                <a class="nav-link <?= $absensiActive; ?>" href="<?=BASE_URL?>app/views/absensi/?action=baca">
+                <a class="nav-link <?= $absensiActive; ?>" href="<?=BASE_URL?>app/views/absensi/?action=baca&limit=10&page=1">
                     <img src="<?=ASSETS_PATH?>images/PNGAbsensi.png" alt="Absensi Icon" class="nav-icon <?= $absensiActive; ?>"> Absensi
                 </a>
             </li>

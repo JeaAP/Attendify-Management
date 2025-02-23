@@ -3,8 +3,14 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../models/absensiModel.php';
 
 // Mengambil semua data absensi
-function getAllAbsensiController() {
-    $result = getAllAbsensi();
+function getAllAbsensiController($limit, $page) {
+    $result = getAllAbsensi($limit, $page);
+    return $result;
+}
+
+// Filter absensi
+function filterAbsensiController($kelas, $jurusan, $mood, $tanggal, $limit, $page) {
+    $result = filterAbsensi($kelas, $jurusan, $mood, $tanggal, $limit, $page);
     return $result;
 }
 

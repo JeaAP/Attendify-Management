@@ -1,13 +1,38 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../../../config/config.php';
 require_once __DIR__ . '/../../routes/absensiRoutes.php';
 
 session_start();
 
 // Ambil semua data absensi
-$absensiAll = getAllAbsensiController();
+// $absensiAll = getAllAbsensiController($limit, $page);
+$filterAbsensi = filterAbsensiController( $kelas, $jurusan, $mood, $tanggal, $limit, $page);
 $kelas = getKelasController();
 $jurusan = getJurusanController();
+
+$kelas = isset($_GET['kelas']) ? $_GET['kelas'] : '';
+$jurusan = isset($_GET['jurusan']) ? $_GET['jurusan'] : '';
+$mood = isset($_GET['mood']) ? $_GET['mood'] : '';
+$tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
+
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+$page = isset($_GET['page'])? (int)$_GET['page'] : 1;
+$totalPages = ceil($totalAbsensi / $limit);
+
+$maxPages = 10;
+if ($totalPages > $maxPages) {
+    $startPage = max(1, $page - floor($maxPages / 2));
+    $endPage = min($totalPages, $startPage + $maxPages - 1);
+} else {
+    $startPage = 1;
+    $endPage = $totalPages;
+}
+
+$pages = range($startPage, $endPage);
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +81,14 @@ $jurusan = getJurusanController();
                         </div>
                         <div class="col mt-2">
                             <h6>Data Kehadiran Siswa</h6>
+                        </div>
+                        <div class="col-md-auto">
+                            <select class="custom-select" id="limitSelect">
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
                         </div>
                         <div class="col-md-auto">
                             <div class="form-row">
@@ -158,6 +191,44 @@ $jurusan = getJurusanController();
                         </tbody>
                     </table>
                 </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>" id="prevButton">
+                                <a class="page-link" onclick="prevPage()" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+
+                            <?php if ($startPage > 1): ?>
+                                <li class="page-item"><a class="page-link" href="?page=1&limit=<?= $limit ?>">1</a></li>
+                                <?php if ($startPage > 2): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <?php foreach ($pages as $i): ?>
+                                <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                    <a class="page-link" href="?page=<?= $i ?>&limit=<?= $limit ?>"><?= $i ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                            <?php if ($endPage < $totalPages): ?>
+                                <?php if ($endPage < $totalPages - 1): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?= $totalPages ?>&limit=<?= $limit ?>"><?= $totalPages ?></a></li>
+                            <?php endif; ?>
+
+                            <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>" id="nextButton">
+                                <a class="page-link" onclick="nextPage()" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
             </div>
         </div>
 
@@ -182,6 +253,7 @@ $jurusan = getJurusanController();
     </main>
 
     <script>
+        // Detail Modal
         document.querySelectorAll('.detail-link').forEach(function (link) {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -193,6 +265,44 @@ $jurusan = getJurusanController();
                 var myModal = new bootstrap.Modal(document.getElementById('detailModal'));
                 myModal.show();
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+                    // limit page url
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('limit') && !urlParams.has('page')) {
+                urlParams.set('limit', '10');
+                urlParams.set('page', '1');
+                window.history.replaceState(null, '', window.location.pathname + '?' + urlParams.toString());
+            }
+        };
+
+        // limit
+        document.getElementById('limitSelect').addEventListener('change', function () {
+            var limit = this.value;
+            var currentUrl = new URL(window.location.href);
+            
+            updatePageLimit(currentUrl.searchParams.get('page'), limit);
+        });
+
+        // pagination
+        document.querySelectorAll('.page-link').forEach(function (link) {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var page = this.textContent;
+                var currentUrl = new URL(window.location.href);
+                
+                updatePageLimit(page, currentUrl.searchParams.get('limit'));
+            });
+        })
+
+        function updatePageLimit(page, limit) {
+            var currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set('page', page);
+            currentUrl.searchParams.set('limit', limit);
+            window.history.replaceState(null, '', currentUrl.toString());
+        };
         });
     </script>
 </body>

@@ -270,4 +270,5 @@ document.addEventListener("DOMContentLoaded", function () {
     // document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
 
     // setInterval(refreshData, 10000);
+    setInterval(resetFilter, 10000);
 });

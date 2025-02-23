@@ -66,14 +66,19 @@ function getKehadiranDashboardData() {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
-    // Memastikan semua nilai berupa integer
-    $result['total_hadir'] = (int)$result['total_hadir'];
-    $result['total_tepat_waktu'] = (int)$result['total_tepat_waktu'];
-    $result['total_terlambat'] = (int)$result['total_terlambat'];
+    if (!$result) {
+        $result = [
+            'total_hadir' => 0,
+            'total_tepat_waktu' => 0,
+            'total_terlambat' => 0
+        ];
+    }
+
     $result['total_belum_absen'] = $total_Siswa - $result['total_hadir'];
     
     return $result;
 }
+
 
 // Mengambil jumlah data absensi untuk dashboard sesuai mood (langsung array)
 function getDashboardMoodData() {

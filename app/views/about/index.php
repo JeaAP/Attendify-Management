@@ -35,8 +35,8 @@ session_start();
         <div class="card-about-about">
             <div class="image-slider" id="slider">
                 <div class="slide-container">
-                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur1.png" alt="Front Image"></div>
-                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/PNGBrosur2.png" alt="Back Image"></div>
+                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/brosurAttendify-01.png" alt="Front Image"></div>
+                    <div class="image-slide"><img src="<?= ASSETS_PATH ?>images/brosurAttendify-02.png.png" alt="Back Image"></div>
                 </div>
             </div>
             <div class="slider-buttons">

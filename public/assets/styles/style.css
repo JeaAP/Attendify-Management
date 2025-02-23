@@ -315,11 +315,6 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
-.card-body:hover {
-  box-shadow: 0 8px 16px rgba(255, 140, 0, 0.418), 0 4px 8px rgba(255, 0, 0, 0.15);
-  transform: translateY(-4px);
-}
-
 /* Style Card Total Hadir */
 .card-bodyhadir {
   padding: 15px;
@@ -330,11 +325,6 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
-.card-bodyhadir:hover {
-  box-shadow: 0 8px 16px rgba(38, 255, 0, 0.374), 0 4px 8px rgba(255, 0, 0, 0.15);
-  transform: translateY(-4px);
-}
-
 /* Style Card Total Terlambat */
 .card-bodyterlambat {
   padding: 15px;
@@ -343,12 +333,6 @@ h2 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.07);
   transition: all 0.3s ease-in-out;
 }
-
-.card-bodyterlambat:hover {
-  box-shadow: 0 8px 16px rgba(255, 0, 0, 0.2), 0 4px 8px rgba(255, 0, 0, 0.15);
-  transform: translateY(-4px);
-}
-
 
 /* Style Card Top Siswa Terlambat */
 .low-attendance-list {
@@ -378,11 +362,6 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
-.card-bodytotal:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-4px);
-}
-
 /* Style Dashboard Mood */
 .summary-card {
   border-right: 3px solid #ccc;
@@ -392,6 +371,7 @@ h2 {
   display: flex;
   justify-content: space-evenly;
   margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .mood-item {
@@ -409,14 +389,18 @@ h2 {
   font-size: 10px; 
 }
 
+
 /* Style Rata-Rata Hadir Pertahun */
-.card.hadir {
-  border-left: 5px solid #28a745; 
+.card-bodyhadirpertahun {
+  background-color: #e5ffe3; 
+  padding: 10px;
 }
 
-.card.terlambat {
-  border-left: 5px solid #dc3545;
+.card-bodyterlambatpertahun {
+  background-color: #fedbdb;
+  padding: 10px;
 }
+
 
 /* Image Slider Styles */
 .image-slider {

@@ -43,32 +43,20 @@ $files = scandir($folderPath);
                 <div class="qr-card">
                     <div class="qr-card-header">
                         <div class="row"> 
-                            <div class="col-md-auto">
+                            <div class="col-md-auto mt-1">
                                 <img src="<?= ASSETS_PATH ?>images/Frame43.png">
                             </div>
-                            <div class="col">
+                            <div class="col mt-2">
                                 <h6>Data QR code</h6>
-                            </div>
-                            <div class="col-md-auto">
-                                <div class="form-row">
-                                    <div class="form-group col-md-auto">
-                                        <button type="button" class="btn btn-primary" id="refreshButton">
-                                            <i class="bi bi-arrow-clockwise"></i>
-                                        </button>
-                                    </div>
-                                    <div class="form-group col-md-auto">
-                                        <input type="date" class="form-control" id="filterDate" oninput="filterByDate()">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="qr-card-body">
-                        <table class="table table-hover">
+                        <table class="table table-hover qr-code-table">
                             <thead>
                                 <tr>
                                     <th>QR Code</th>
-                                    <th class="qr-date">Tanggal</th>
+                                    <th class="qr-date text-center">Tanggal</th>
                                     <th class="text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -83,7 +71,7 @@ $files = scandir($folderPath);
                                                 <span class="qr-code-text" hidden><?= $qr_code['qr_code_text'] ?></span>
                                             </td>
                                             <td class="qr-date"><?= date('Y-m-d', strtotime($qr_code['created_at'])) ?></td>
-                                            <td class="text-center">
+                                            <td>
                                                 <a href="<?= BASE_URL ?>app/routes/qrcodesRoutes.php?action=delete&id=<?= $qr_code['id'] ?>">
                                                     <button class="btn btn-danger">Delete</button>
                                                 </a>

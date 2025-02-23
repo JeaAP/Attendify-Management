@@ -55,9 +55,9 @@ function getKehadiranDashboardData() {
     $total_Siswa = 1214;
 
     $query = "SELECT 
-                SUM(CASE WHEN keterangan IN ('Tepat Waktu', 'Terlambat') THEN 1 ELSE 0 END) AS total_hadir,
-                SUM(CASE WHEN keterangan = 'Tepat Waktu' THEN 1 ELSE 0 END) AS total_tepat_waktu,
-                SUM(CASE WHEN keterangan = 'Terlambat' THEN 1 ELSE 0 END) AS total_terlambat
+                COALESCE(SUM(CASE WHEN keterangan IN ('Tepat Waktu', 'Terlambat') THEN 1 ELSE 0 END), 0) AS total_hadir,
+                COALESCE(SUM(CASE WHEN keterangan = 'Tepat Waktu' THEN 1 ELSE 0 END), 0) AS total_tepat_waktu,
+                COALESCE(SUM(CASE WHEN keterangan = 'Terlambat' THEN 1 ELSE 0 END), 0) AS total_terlambat
             FROM absensi
             WHERE DATE(waktu) = ?";
     
@@ -66,11 +66,14 @@ function getKehadiranDashboardData() {
     $stmt->execute();
     $result = $stmt->get_result()->fetch_assoc();
 
+    // Memastikan semua nilai berupa integer
+    $result['total_hadir'] = (int)$result['total_hadir'];
+    $result['total_tepat_waktu'] = (int)$result['total_tepat_waktu'];
+    $result['total_terlambat'] = (int)$result['total_terlambat'];
     $result['total_belum_absen'] = $total_Siswa - $result['total_hadir'];
     
     return $result;
 }
-
 
 // Mengambil jumlah data absensi untuk dashboard sesuai mood (langsung array)
 function getDashboardMoodData() {

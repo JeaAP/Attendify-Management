@@ -127,18 +127,30 @@ function getDashboardMoodData() {
     $date = date('Y-m-d');
 
     $query = "SELECT
-                SUM(CASE WHEN mood = 'Angry' THEN 1 ELSE 0 END) AS total_mood_angry,
-                SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END) AS total_mood_tired,
-                SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END) AS total_mood_sad,
-                SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END) AS total_mood_happy,
-                SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END) AS total_mood_excited
+                COALESCE(SUM(CASE WHEN mood = 'Angry' THEN 1 ELSE 0 END), 0) AS total_mood_angry,
+                COALESCE(SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END), 0) AS total_mood_tired,
+                COALESCE(SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END), 0) AS total_mood_sad,
+                COALESCE(SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END), 0) AS total_mood_happy,
+                COALESCE(SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END), 0) AS total_mood_excited
             FROM absensi
             WHERE DATE(waktu) = ?";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $date);
     $stmt->execute();
-    return $stmt->get_result()->fetch_assoc(); // Langsung array
+    $result = $stmt->get_result()->fetch_assoc(); // Langsung array
+    
+    if(!$result) {
+        $result = [
+            'total_mood_angry' => 0,
+            'total_mood_tired' => 0,
+            'total_mood_sad' => 0,
+            'total_mood_happy' => 0,
+            'total_mood_excited' => 0
+        ];
+    }
+
+    return $result;
 }
 
 // Mengambil absensi top 10 siswa dengan tingkat kehadiran rendah atau terlambat (langsung array)

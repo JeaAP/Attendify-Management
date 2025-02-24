@@ -117,11 +117,6 @@ $average_student_attendance = getRataRataKehadiran();
                         Rangking Kehadiran Terbaik
                     </a>
                     <div class="table-responsive">
-                        <?php if (empty($Top_attendance_students)): ?>
-                            <div class="card-body" style="text-align: center;">
-                                <h6>Tidak Ada Data</h6>
-                            </div>
-                        <?php else: ?>
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -133,6 +128,11 @@ $average_student_attendance = getRataRataKehadiran();
                                     </tr>
                                 </thead> 
                                 <tbody>
+                                <?php if (empty($Top_attendance_students)): ?>
+                                    <div class="attendance-row">
+                                        <div class="attendance-col" colspan="5" style="text-align: center;">Tidak Ada Data</div>
+                                    </div>
+                                <?php else: ?>
                                     <?php
                                         foreach ($Top_attendance_students as $index => $student):
                                             if ($index === 0) {

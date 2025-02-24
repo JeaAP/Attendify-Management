@@ -148,7 +148,13 @@ function getDashboardMoodData() {
                 COALESCE(SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END), 0) AS total_mood_tired,
                 COALESCE(SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END), 0) AS total_mood_sad,
                 COALESCE(SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END), 0) AS total_mood_happy,
-                COALESCE(SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END), 0) AS total_mood_excited
+                COALESCE(SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END), 0) AS total_mood_excited,
+                -- untuk persen
+                (SUM(CASE WHEN mood = 'Angry' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_angry,
+                (SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_tired,
+                (SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_sad,
+                (SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_happy,
+                (SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_excited
             FROM absensi
             WHERE DATE(waktu) = ?";
     

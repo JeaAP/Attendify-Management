@@ -85,23 +85,23 @@ $average_student_attendance = getRataRataKehadiran();
                     <div class="mood-summary">
                         <div class="mood-item">
                             <a href="absensi/?action=baca&page=1&mood=Angry"><img src="<?= ASSETS_PATH ?>images/PNGAngry.png" alt="Angry" class="mood-icon"> </a>
-                            <p>Angry: <?= $student_mood['total_mood_angry']; ?>%</p>
+                            <p>Angry: <?= $student_mood['persentase_mood_angry']; ?>%</p>
                         </div>
                         <div class="mood-item">
                             <a href="./absensi/?action=baca&page=1&mood=Tired"><img src="<?= ASSETS_PATH ?>images/PNGTired.png" alt="Tired" class="mood-icon"> </a>
-                            <p>Tired: <?= $student_mood['total_mood_tired']; ?>%</p>
+                            <p>Tired: <?= $student_mood['persentase_mood_tired']; ?>%</p>
                         </div>
                         <div class="mood-item">
                             <a href="./absensi/?action=baca&page=1&mood=Sad"><img src="<?= ASSETS_PATH ?>images/PNGSad.png" alt="Sad" class="mood-icon"> </a>
-                            <p>Sad: <?= $student_mood['total_mood_tired']; ?>%</p>
+                            <p>Sad: <?= $student_mood['persentase_mood_sad']; ?>%</p>
                         </div>
                         <div class="mood-item">
                             <a href="./absensi/?action=baca&page=1&mood=Happy"><img src="<?= ASSETS_PATH ?>images/PNGHappy.png" alt="Happy" class="mood-icon"> </a>
-                            <p>Happy: <?= $student_mood['total_mood_happy']; ?>%</p>
+                            <p>Happy: <?= $student_mood['persentase_mood_happy']; ?>%</p>
                         </div>
                         <div class="mood-item">
                             <a href="./absensi/?action=baca&page=1&mood=Excited"><img src="<?= ASSETS_PATH ?>images/PNGExcited.png" alt="Excited" class="mood-icon" ></a>
-                            <p>Excited: <?= $student_mood['total_mood_excited']; ?>%</p>
+                            <p>Excited: <?= $student_mood['persentase_mood_excited']; ?>%</p>
                         </div>
                     </div>
                 </div>

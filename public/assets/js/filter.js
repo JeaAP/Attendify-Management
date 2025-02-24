@@ -248,6 +248,18 @@ function resetFilter() {
 
     window.location.search = urlParams.toString();
 }
+
+function isFilterActive() {
+    return (
+        document.getElementById("jurusanFilter").value !== "" ||
+        document.getElementById("kelasFilter").value !== "" ||
+        document.getElementById("statusFilter").value !== "" ||
+        document.getElementById("moodFilter").value !== "" ||
+        document.getElementById("searchInput").value.trim() !== "" ||
+        document.getElementById("filterDate").value !== ""
+    );
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("filterDate").addEventListener("input", filterByDate);
     document.getElementById("jurusanFilter").addEventListener("change", filterByJurusan);
@@ -270,5 +282,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
 
     // setInterval(refreshData, 10000);
-    setInterval(resetFilter, 10000);
+    setInterval(() => {
+        if (isFilterActive()) {
+            resetFilter();
+        }
+    }, 10000);
 });

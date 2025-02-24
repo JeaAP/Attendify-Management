@@ -150,11 +150,26 @@ function getDashboardMoodData() {
                 COALESCE(SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END), 0) AS total_mood_happy,
                 COALESCE(SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END), 0) AS total_mood_excited,
                 -- untuk persen
-                (SUM(CASE WHEN mood = 'Angry' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_angry,
-                (SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_tired,
-                (SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_sad,
-                (SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_happy,
-                (SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS persentase_mood_excited
+                CASE 
+                    WHEN COUNT(*) > 0 THEN (SUM(CASE WHEN mood = 'Angry' THEN 1 ELSE 0 END) / COUNT(*)) * 100 
+                    ELSE 0 
+                END AS persentase_mood_angry,
+                CASE 
+                    WHEN COUNT(*) > 0 THEN (SUM(CASE WHEN mood = 'Tired' THEN 1 ELSE 0 END) / COUNT(*)) * 100 
+                    ELSE 0 
+                END AS persentase_mood_tired,
+                CASE 
+                    WHEN COUNT(*) > 0 THEN (SUM(CASE WHEN mood = 'Sad' THEN 1 ELSE 0 END) / COUNT(*)) * 100 
+                    ELSE 0 
+                END AS persentase_mood_sad,
+                CASE 
+                    WHEN COUNT(*) > 0 THEN (SUM(CASE WHEN mood = 'Happy' THEN 1 ELSE 0 END) / COUNT(*)) * 100 
+                    ELSE 0 
+                END AS persentase_mood_happy,
+                CASE 
+                    WHEN COUNT(*) > 0 THEN (SUM(CASE WHEN mood = 'Excited' THEN 1 ELSE 0 END) / COUNT(*)) * 100 
+                    ELSE 0 
+                END AS persentase_mood_excited
             FROM absensi
             WHERE DATE(waktu) = ?";
     
@@ -169,7 +184,12 @@ function getDashboardMoodData() {
             'total_mood_tired' => 0,
             'total_mood_sad' => 0,
             'total_mood_happy' => 0,
-            'total_mood_excited' => 0
+            'total_mood_excited' => 0,
+            'persentase_mood_angry' => 0,
+            'persentase_mood_tired' => 0,
+            'persentase_mood_sad' => 0,
+            'persentase_mood_happy' => 0,
+            'persentase_mood_excited' => 0
         ];
     }
 
@@ -227,9 +247,9 @@ function getRataRataKehadiran() {
 
     $query = "SELECT 
                 tahun_pembelajaran,
-                ROUND(AVG(persen_hadir), 2) AS rata_rata_hadir,
-                ROUND(AVG(persen_tepat_waktu), 2) AS rata_rata_tepat_waktu,
-                ROUND(AVG(persen_terlambat), 2) AS rata_rata_terlambat
+                ROUND(AVG(CASE WHEN total_hadir > 0 THEN persen_hadir ELSE 0 END), 2) AS rata_rata_hadir,
+                ROUND(AVG(CASE WHEN total_hadir > 0 THEN persen_tepat_waktu ELSE 0 END), 2) AS rata_rata_tepat_waktu,
+                ROUND(AVG(CASE WHEN total_hadir > 0 THEN persen_terlambat ELSE 0 END), 2) AS rata_rata_terlambat
             FROM (
                 SELECT 
                     nisn,
@@ -251,6 +271,16 @@ function getRataRataKehadiran() {
     $stmt->execute();
     $result = $stmt->get_result();
     
+    // Check if there is any result, if not return 0 for all fields
+    if ($result->num_rows == 0) {
+        return [
+            'tahun_pembelajaran' => null,
+            'rata_rata_hadir' => 0,
+            'rata_rata_tepat_waktu' => 0,
+            'rata_rata_terlambat' => 0
+        ];
+    }
+
     return $result->fetch_assoc();
 }
 

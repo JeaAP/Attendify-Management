@@ -81,7 +81,7 @@ $average_student_attendance = getRataRataKehadiran();
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h4>Review Mood</h4>
-                    <a>Presentase rata-rata mood yang sering dirasakan siswa</a>
+                    <a>Presentase rata-rata mood yang dirasakan siswa</a>
                     <div class="mood-summary">
                         <div class="mood-item">
                             <a href="absensi/?action=baca&page=1&mood=Angry"><img src="<?= ASSETS_PATH ?>images/PNGAngry.png" alt="Angry" class="mood-icon"> </a>

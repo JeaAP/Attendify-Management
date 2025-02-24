@@ -260,15 +260,66 @@ function isFilterActive() {
     );
 }
 
+let resetInterval;
+
+function startResetInterval() {
+    // Clear any existing interval first
+    if (resetInterval) {
+        clearInterval(resetInterval);
+    }
+    
+    // Only start the interval if no filters are active
+    if (!isFilterActive()) {
+        resetInterval = setInterval(() => {
+            resetFilter();
+        }, 10000);
+    }
+}
+
+function handleFilterChange() {
+    if (isFilterActive()) {
+        // Clear the interval if filters are active
+        if (resetInterval) {
+            clearInterval(resetInterval);
+            resetInterval = null;
+        }
+    } else {
+        // Start the interval if no filters are active
+        startResetInterval();
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("filterDate").addEventListener("input", filterByDate);
-    document.getElementById("jurusanFilter").addEventListener("change", filterByJurusan);
-    document.getElementById("kelasFilter").addEventListener("change", filterByKelas);
-    document.getElementById("statusFilter").addEventListener("change", filterByStatus);
-    document.getElementById("moodFilter").addEventListener("change", filterByMood);
-    document.getElementById("searchInput").addEventListener("input", filterBySearch);
+    // Add event listeners for all filter inputs
+    document.getElementById("filterDate").addEventListener("input", () => {
+        filterByDate();
+        handleFilterChange();
+    });
+    document.getElementById("jurusanFilter").addEventListener("change", () => {
+        filterByJurusan();
+        handleFilterChange();
+    });
+    document.getElementById("kelasFilter").addEventListener("change", () => {
+        filterByKelas();
+        handleFilterChange();
+    });
+    document.getElementById("statusFilter").addEventListener("change", () => {
+        filterByStatus();
+        handleFilterChange();
+    });
+    document.getElementById("moodFilter").addEventListener("change", () => {
+        filterByMood();
+        handleFilterChange();
+    });
+    document.getElementById("searchInput").addEventListener("input", () => {
+        filterBySearch();
+        handleFilterChange();
+    });
     document.getElementById("refreshButton").addEventListener("click", refreshData);
-    document.getElementById("resetButton").addEventListener("click", resetFilter);
+    document.getElementById("resetButton").addEventListener("click", () => {
+        resetFilter();
+        startResetInterval(); // Restart interval after reset
+    });
 
     const urlParams = new URLSearchParams(window.location.search);
     if(urlParams.has('status')) {
@@ -279,12 +330,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("moodFilter").value = urlParams.get('mood');
         filterByMood();
     }
-    // document.getElementById("resetFilterButton").addEventListener("click", resetFilter);
 
-    // setInterval(refreshData, 10000);
-    setInterval(() => {
-        if (isFilterActive()) {
-            resetFilter();
-        }
-    }, 10000);
+    // Start the initial interval if no filters are active
+    startResetInterval();
 });

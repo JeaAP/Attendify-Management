@@ -117,16 +117,21 @@ $average_student_attendance = getRataRataKehadiran();
                         Rangking Kehadiran Terbaik
                     </a>
                     <div class="table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Kelas</th>
-                                    <th>Keterangan</th>
-                                    <th>Total Hadir</th>
-                                </tr>
-                            </thead> 
+                        <?php if (empty($Top_attendance_students)): ?>
+                            <div class="card-body" style="text-align: center;">
+                                <h6>Tidak Ada Data</h6>
+                            </div>
+                        <?php else: ?>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama</th>
+                                        <th>Kelas</th>
+                                        <th>Keterangan</th>
+                                        <th>Total Hadir</th>
+                                    </tr>
+                                </thead> 
                                 <tbody>
                                     <?php
                                         foreach ($Top_attendance_students as $index => $student):
@@ -152,7 +157,8 @@ $average_student_attendance = getRataRataKehadiran();
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
-                        </table>
+                            </table>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -205,15 +211,22 @@ $average_student_attendance = getRataRataKehadiran();
                             <div class="attendance-col">Keterangan</div>
                             <div class="attendance-col">Total Terlambat</div>
                         </div>
-                        <?php foreach ($low_attendance_students as $index => $student): ?>
-                        <div class="attendance-row">
-                            <div class="attendance-col"><?php echo $index + 1; ?></div>
-                            <div class="attendance-col"><?php echo htmlspecialchars($student['nama']); ?></div>
-                            <div class="attendance-col"><?php echo htmlspecialchars($student['kelas']); ?></div>
-                            <div class="attendance-col"><?php echo htmlspecialchars($student['keterangan']); ?></div>
-                            <div class="attendance-col"><?php echo $student['total_terlambat']; ?></div>
-                        </div>
-                        <?php endforeach; ?>
+                        
+                        <?php if (empty($low_attendance_students)): ?>
+                            <div class="attendance-row">
+                                <div class="attendance-col" colspan="5" style="text-align: center;">Tidak Ada Data</div>
+                            </div>
+                        <?php else: ?>
+                            <?php foreach ($low_attendance_students as $index => $student): ?>
+                            <div class="attendance-row">
+                                <div class="attendance-col"><?php echo $index + 1; ?></div>
+                                <div class="attendance-col"><?php echo htmlspecialchars($student['nama']); ?></div>
+                                <div class="attendance-col"><?php echo htmlspecialchars($student['kelas']); ?></div>
+                                <div class="attendance-col"><?php echo htmlspecialchars($student['keterangan']); ?></div>
+                                <div class="attendance-col"><?php echo $student['total_terlambat']; ?></div>
+                            </div>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
